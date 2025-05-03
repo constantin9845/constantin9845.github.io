@@ -1,3 +1,5 @@
+import {stack} from './stack.js';
+const STACK = new stack();
 
 const aboutBtn = document.getElementById('about-btn');
 const projectsBtn = document.getElementById('projects-btn');
@@ -5,14 +7,16 @@ const downloadsBtn = document.getElementById('downloads-btn');
 
 const UI_CONTENT = document.getElementById('ui-content');
 
+var SELECTED_TEXT = null;
+var COPIED_TEXT = null;
+var VIEW_STYLE = 0;
+
+
 // ABOUT TAB
 aboutBtn.addEventListener('dblclick', ()=>{
 
-    const aboutWindow = createAbout();
+    displayAbout();
 
-    UI_CONTENT.appendChild(aboutWindow);
-
-    dragWindow(aboutWindow);
 });
 
 // close 
@@ -20,55 +24,92 @@ document.body.addEventListener('click',(event)=>{
     if(event.target.matches('.close-about-btn')){
         destroyAbout();
     }
-    else if(event.target.matches('.close-projects-btn')){
+    else if(event.target.matches('.close-projects-btn') && event.target.classList.length == 1){
         destroyProjects();
     }
-    else if(event.target.matches('.project0')){
+    else if(event.target.matches('.close-downloads-btn')){
+        destroyDownloads();
+    }
+    else if(event.target.classList[0] == 'close-project-btn' && event.target.classList[1] == 'project0'){
         destroyProject(0);
     }
-    else if(event.target.matches('.project1')){
+    else if(event.target.classList[0] == 'close-project-btn' && event.target.classList[1] == 'project1'){
         destroyProject(1);
     }
-    else if(event.target.matches('.project2')){
+    else if(event.target.classList[0] == 'close-project-btn' && event.target.classList[1] == 'project2'){
         destroyProject(2);
     }
-    else if(event.target.matches('.project3')){
+    else if(event.target.classList[0] == 'close-project-btn' && event.target.classList[1] == 'project3'){
         destroyProject(3);
     }
-    else if(event.target.matches('.project4')){
+    else if(event.target.classList[0] == 'close-project-btn' && event.target.classList[1] == 'project4'){
         destroyProject(4);
     }
 });
 
 // PROJECTS TAB
 projectsBtn.addEventListener('dblclick', ()=>{
-    const projectsWindow = createProjects();
 
-    UI_CONTENT.appendChild(projectsWindow);
+    if(STACK.checkOpen('projects-window')==-1){
+        const projectsWindow = createProjects();
 
-    dragWindow(projectsWindow);
+        UI_CONTENT.appendChild(projectsWindow);
+
+        dragWindow(projectsWindow);
+
+        STACK.openTab('projects-window');
+    }
+    else{
+        STACK.moveFront('projects-window');
+    }
+})
+
+// DOWNLOADS TAB
+downloadsBtn.addEventListener('dblclick', ()=>{
+
+    if(STACK.checkOpen('downloads-window')==-1){
+        const downloadsWindow = createDownloads();
+
+        UI_CONTENT.appendChild(downloadsWindow);
+
+        dragWindow(downloadsWindow);
+
+        STACK.openTab('downloads-window');
+    }
+    else{
+        STACK.moveFront('downloads-window');
+    }
 })
 
 // Single project 
 document.body.addEventListener('dblclick', (event)=>{
 
-    console.log(`Current: ${event.target.id}`);
-    console.log(`Parent: ${event.target.parentElement.id}`);
+    let temp = ['project0','project1','project2','project3','project4'];
+    let temp2 = ['project00','project11','project22','project33','project44'];
 
-    if(['project0','project1','project2','project3','project4'].includes(event.target.id) || ['project0','project1','project2','project3','project4'].includes(event.target.parentElement.id)){
-        
-        let temp;
+    if(temp.includes(event.target.classList[1]) || temp.includes(event.target.parentElement.classList[1])){
+        let index = -1; 
+        for(let j = 0; j < 5; j++){
+            if(event.target.id == temp[j] || event.target.parentElement.id == temp[j]){
+                index = j;
+                break;
+            }
+        }
 
-        if(event.target.id){
-            temp = createProject(event.target.id.at(-1));
+        if(STACK.checkOpen(temp2[index])==-1){
+
+            const newProject = createProject(index);
+
+            UI_CONTENT.appendChild(newProject);
+
+            dragWindow(newProject);
+
+            STACK.openTab(temp2[index]);
         }
         else{
-            temp = createProject(event.target.parentElement.id.at(-1));
+            STACK.moveFront(temp2[index]);
         }
-        UI_CONTENT.appendChild(temp);
-
-        dragWindow(temp);
-    }  
+    }
 
 })
 
@@ -110,6 +151,32 @@ function dragWindow(element){
         document.onmousemove = null;
     }
 }
+
+// Move tab to front
+document.body.addEventListener('click',(event)=>{
+    let current = event.target;
+    let tabs = ['about-window','projects-window','downloads-window','project00','project11','project22','project33','project44'];
+    let parents = [];
+
+    while(current.parentElement){
+        if(current.parentElement.classList.length == 1){
+            parents.push(current.parentElement.className);
+        }
+        else{
+            parents.push(current.parentElement.classList[1]);
+        }
+        current = current.parentElement;
+    }
+
+    for(let i = 0; i < tabs.length; i++){
+        if(parents.includes(tabs[i])){
+            STACK.moveFront(`${tabs[i]}`);
+            break;
+        }
+    }
+
+})
+
 
 function createAbout(){
     const aboutWindow = document.createElement('div');
@@ -216,13 +283,14 @@ function createProjects(){
         const projectThumbnail = document.createElement('img');
         const projectTitle = document.createElement('p');
 
-        projectThumbnail.src = 'images/disk.png';
+        projectThumbnail.src = 'images/floppy-disk.png';
         projectThumbnail.style.zIndex = '999';
         projectTitle.textContent = projectNames[i];
 
         projectShortcut.appendChild(projectThumbnail);
         projectShortcut.appendChild(projectTitle);
         projectShortcut.id = `project${i}`;
+        projectShortcut.classList.add(`project${i}`);
 
         projectFolders.appendChild(projectShortcut);
     }
@@ -231,6 +299,54 @@ function createProjects(){
     projectsWindow.appendChild(projectFolders);
 
     return projectsWindow;
+}
+
+function createDownloads(){
+    const downloadsWindow = document.createElement('div');
+    downloadsWindow.classList.add('downloads-window');
+
+    const downloadsWindowToolbar = document.createElement('div');
+    const closeBtnContainer = document.createElement('div');
+    closeBtnContainer.classList.add('close-btn-container')
+    const closeBtn = document.createElement('div');
+    closeBtn.classList.add('close-downloads-btn');
+    closeBtnContainer.appendChild(closeBtn)
+    const titleContainer = document.createElement('div');
+    titleContainer.classList.add('title-container');
+    const title = document.createElement('p');
+    titleContainer.appendChild(title);
+    title.textContent = 'Downloads';
+
+    downloadsWindowToolbar.classList.add('downloads-toolbar');
+    downloadsWindowToolbar.appendChild(closeBtnContainer);
+    downloadsWindowToolbar.appendChild(titleContainer);
+
+    const downloadsContent = document.createElement('div');
+    downloadsContent.classList.add('downloads-content');
+
+    const description = document.createElement('p');
+    description.textContent = 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.';
+
+    const links = document.createElement('ul');
+    let link = document.createElement('li');
+    link.textContent = 'Mac';
+    links.appendChild(link);
+
+    link = document.createElement('li');
+    link.textContent = 'Windows';
+    links.appendChild(link);
+
+    link = document.createElement('li');
+    link.textContent = 'Linux';
+    links.appendChild(link);
+
+    downloadsContent.appendChild(description);
+    downloadsContent.appendChild(links);
+
+    downloadsWindow.appendChild(downloadsWindowToolbar);
+    downloadsWindow.appendChild(downloadsContent);
+
+    return downloadsWindow;
 }
 
 function createProject(projectNumber){
@@ -262,7 +378,8 @@ function createProject(projectNumber){
 
     const projectWindow = document.createElement('div');
     projectWindow.classList.add('project-window');
-    projectWindow.classList.add(`project${projectNumber}`);
+    projectWindow.classList.add(`project${projectNumber}${projectNumber}`);
+    projectWindow.id = `project${projectNumber}`;
 
     const projectWindowToolbar = document.createElement('div');
     const closeBtnContainer = document.createElement('div');
@@ -277,7 +394,7 @@ function createProject(projectNumber){
     titleContainer.appendChild(title);
     title.textContent = projectNames[projectNumber];
 
-    projectWindowToolbar.classList.add('projects-toolbar');
+    projectWindowToolbar.classList.add('project-toolbar');
     projectWindowToolbar.appendChild(closeBtnContainer);
     projectWindowToolbar.appendChild(titleContainer);
 
@@ -295,7 +412,9 @@ function createProject(projectNumber){
     }
 
     const link = document.createElement('a');
-    link.src = links[projectNumber];
+    link.target = '_blank';
+    link.href = links[projectNumber];
+    link.textContent = links[projectNumber];
 
     projectFolder.appendChild(intro);
     projectFolder.appendChild(skillsUL);
@@ -312,14 +431,16 @@ function destroyAbout(){
 
     if(temp){
         UI_CONTENT.removeChild(temp);
+        STACK.closeTab(STACK.checkOpen('about-window'));
     }
 }
 
 function destroyProject(projectNumber){
-    const temp = UI_CONTENT.querySelector(`.project${projectNumber}`);
+    const temp = UI_CONTENT.querySelector(`.project${projectNumber}${projectNumber}`);
 
     if(temp){
         UI_CONTENT.removeChild(temp);
+        STACK.closeTab(STACK.checkOpen(`project${projectNumber}${projectNumber}`));
     }
 }
 
@@ -329,6 +450,17 @@ function destroyProjects(){
     if(temp){
        
         UI_CONTENT.removeChild(temp);
+        STACK.closeTab(STACK.checkOpen('projects-window'));
+    }
+}
+
+function destroyDownloads(){
+    const temp = UI_CONTENT.querySelector('.downloads-window');
+
+    if(temp){
+       
+        UI_CONTENT.removeChild(temp);
+        STACK.closeTab(STACK.checkOpen('downloads-window'));
     }
 }
 
@@ -348,3 +480,416 @@ function createTable(data){
 
     return table;
 }
+
+function displayAbout(){
+    if(STACK.checkOpen('about-window')==-1){
+        const aboutWindow = createAbout();
+
+        UI_CONTENT.appendChild(aboutWindow);
+
+        dragWindow(aboutWindow);
+
+        STACK.openTab('about-window');
+    }
+    else{
+        STACK.moveFront('about-window');
+    }
+}
+
+// TOP Toolbar
+const appleBtn = document.getElementById('apple-btn');
+const fileBtn = document.getElementById('file-btn');
+const editBtn = document.getElementById('edit-btn');
+const viewBtn = document.getElementById('view-btn');
+const specialBtn = document.getElementById('special-btn');
+
+function createDropDown(type){
+    const dropDown = document.createElement('div');
+    dropDown.classList.add('dropDown');
+
+    let titles;
+
+    switch(type){
+        case 0:
+            titles = ['About The Finder...','Scrapbook','Alarm Clock','Control Panel','Puzzle'];
+            break;
+        case 1:
+            titles = ['Open','Dublicate','Get Info'];
+            break;
+        case 2:
+            titles = ['Cut','Copy','Paste','Select All'];
+            break;
+        case 3:
+            titles = ['By Icon','By Name','By Date','By Size','By Kind'];
+            break;
+        case 4:
+            titles = ['Clean Up','Empty Trash','Erase Disk'];
+            break;
+    }
+
+
+    for(let i = 0; i < titles.length; i++){
+        const link = document.createElement('p');
+        link.textContent = titles[i];
+        link.id = `toolbar-link-${i}`;
+        dropDown.appendChild(link);
+    }
+
+    return dropDown;
+}
+
+function openDropdown(type){
+    const menu = createDropDown(type);
+    menu.classList.add('dropdown-menu');
+    switch(type){
+        case 0:
+            menu.classList.add('apple-dropdown');
+            document.querySelector('#apple-btn').style.backgroundColor = 'black';
+            document.querySelector('#apple-btn').style.color = 'white';
+            break;
+        case 1:
+            menu.classList.add('file-dropdown');
+            document.querySelector('#file-btn').style.backgroundColor = 'black';
+            document.querySelector('#file-btn').style.color = 'white';
+            break;
+        case 2:
+            menu.classList.add('edit-dropdown');
+            document.querySelector('#edit-btn').style.backgroundColor = 'black';
+            document.querySelector('#edit-btn').style.color = 'white';
+            break;
+        case 3:
+            menu.classList.add('view-dropdown');
+            document.querySelector('#view-btn').style.backgroundColor = 'black';
+            document.querySelector('#view-btn').style.color = 'white';
+            break;
+        case 4:
+            menu.classList.add('special-dropdown');
+            document.querySelector('#special-btn').style.backgroundColor = 'black';
+            document.querySelector('#special-btn').style.color = 'white';
+            break;
+    }
+
+    UI_CONTENT.appendChild(menu);
+
+    getAvailableFunctions(type);
+}
+
+function closeDropdown(type){
+    let temp;
+    switch(type){
+        case 0:
+            temp = UI_CONTENT.querySelector('.apple-dropdown');
+            document.querySelector('#apple-btn').style.backgroundColor = 'rgb(224, 224, 224)';
+            document.querySelector('#apple-btn').style.color = 'black';
+            break;
+        case 1:
+            temp = UI_CONTENT.querySelector('.file-dropdown');
+            document.querySelector('#file-btn').style.backgroundColor = 'rgb(224, 224, 224)';
+            document.querySelector('#file-btn').style.color = 'black';
+            break;
+        case 2:
+            temp = UI_CONTENT.querySelector('.edit-dropdown');
+            document.querySelector('#edit-btn').style.backgroundColor = 'rgb(224, 224, 224)';
+            document.querySelector('#edit-btn').style.color = 'black';
+            break;
+        case 3:
+            temp = UI_CONTENT.querySelector('.view-dropdown');
+            document.querySelector('#view-btn').style.backgroundColor = 'rgb(224, 224, 224)';
+            document.querySelector('#view-btn').style.color = 'black';
+            break;
+        case 4:
+            temp = UI_CONTENT.querySelector('.special-dropdown');
+            document.querySelector('#special-btn').style.backgroundColor = 'rgb(224, 224, 224)';
+            document.querySelector('#special-btn').style.color = 'black';
+            break;
+    }
+
+    if(temp){
+        UI_CONTENT.removeChild(temp);
+    }
+}
+
+function getAvailableFunctions(type){
+
+    try{
+        document.querySelector('#toolbar-link-0').style.color = 'grey';
+        document.querySelector('#toolbar-link-1').style.color = 'grey';
+        document.querySelector('#toolbar-link-2').style.color = 'grey';
+        document.querySelector('#toolbar-link-3').style.color = 'grey';
+        document.querySelector('#toolbar-link-4').style.color = 'grey';
+    }
+    catch(error){
+        console.log(error);
+    }
+
+    switch(type){
+        case 0:
+            document.querySelector('#toolbar-link-0').style.color = 'black';
+            document.querySelector('#toolbar-link-1').style.color = 'black';
+            document.querySelector('#toolbar-link-2').style.color = 'black';
+            document.querySelector('#toolbar-link-3').style.color = 'black';
+            document.querySelector('#toolbar-link-4').style.color = 'black';
+            break;
+        case 1:
+            // no focus
+            if(STACK.getFocus() == null){
+                document.querySelector('#toolbar-link-0').style.color = 'grey';
+                document.querySelector('#toolbar-link-1').style.color = 'grey';
+                document.querySelector('#toolbar-link-2').style.color = 'grey';
+            }
+            else if(STACK.getFocus() == 'about-icon' || STACK.getFocus() == 'projects-icon' || STACK.getFocus() == 'downloads-icon'){
+                document.querySelector('#toolbar-link-0').style.color = 'black';
+                document.querySelector('#toolbar-link-2').style.color = 'black';
+            }
+            else{
+
+                // OPEN FILE
+
+                // DUPLICATE FILE
+
+                // GET FILE INFO
+            }
+            break;
+
+        case 2:
+            if(SELECTED_TEXT == null){
+                document.querySelector('#toolbar-link-0').style.color = 'grey';
+                document.querySelector('#toolbar-link-1').style.color = 'grey';
+
+                if(COPIED_TEXT == null){
+                    document.querySelector('#toolbar-link-2').style.color = 'grey';
+                }
+            }
+            else{
+                if(COPIED_TEXT == null){
+                    document.querySelector('#toolbar-link-2').style.color = 'grey';
+                }
+            }
+            break;
+        
+        case 3:
+            document.querySelector(`#toolbar-link-${VIEW_STYLE}`).innerHTML = `${document.querySelector(`#toolbar-link-${VIEW_STYLE}`).textContent} &#10003;`;
+            document.querySelector(`#toolbar-link-${VIEW_STYLE}`).style.color = 'black';
+            break;
+        
+        case 4:
+            document.querySelector('#toolbar-link-0').style.color = 'grey';
+            document.querySelector('#toolbar-link-1').style.color = 'grey';
+            document.querySelector('#toolbar-link-2').style.color = 'grey';
+            break;
+    }
+}
+
+appleBtn.addEventListener('click', ()=>{
+
+    closeDropdown(1);
+    closeDropdown(2);
+    closeDropdown(3);
+    closeDropdown(4);
+
+    const temp = UI_CONTENT.querySelector('.apple-dropdown');
+
+    if(temp){
+        closeDropdown(0);
+    }
+    else{
+        openDropdown(0);
+    }
+});
+
+fileBtn.addEventListener('click',()=>{
+
+    closeDropdown(0);
+    closeDropdown(2);
+    closeDropdown(3);
+    closeDropdown(4);
+
+    const temp = UI_CONTENT.querySelector('.file-dropdown');
+
+    if(temp){
+        closeDropdown(1);
+    }
+    else{
+        openDropdown(1);
+    }
+});
+
+editBtn.addEventListener('click',()=>{
+    
+    closeDropdown(0);
+    closeDropdown(1);
+    closeDropdown(3);
+    closeDropdown(4);
+
+    const temp = UI_CONTENT.querySelector('.edit-dropdown');
+
+    if(temp){
+        closeDropdown(2);
+    }
+    else{
+        openDropdown(2);
+    }
+});
+
+viewBtn.addEventListener('click',()=>{
+    
+    closeDropdown(0);
+    closeDropdown(1);
+    closeDropdown(2);
+    closeDropdown(4);
+
+    const temp = UI_CONTENT.querySelector('.view-dropdown');
+
+    if(temp){
+        closeDropdown(3);
+    }
+    else{
+        openDropdown(3);
+    }
+});
+
+specialBtn.addEventListener('click',()=>{
+    
+    closeDropdown(0);
+    closeDropdown(1);
+    closeDropdown(2);
+    closeDropdown(3);
+
+    const temp = UI_CONTENT.querySelector('.special-dropdown');
+
+    if(temp){
+        closeDropdown(4);
+    }
+    else{
+        openDropdown(4);
+    }
+});
+
+document.body.addEventListener('click',(event)=>{
+    try{
+        if(
+            !(
+                event.target.id == 'toolbar-link-0' ||
+                event.target.id == 'toolbar-link-1' ||
+                event.target.id == 'toolbar-link-2' ||
+                event.target.id == 'toolbar-link-3' ||
+                event.target.id == 'toolbar-link-4' ||
+                event.target.id == 'apple-btn' ||
+                event.target.id == 'file-btn' ||
+                event.target.id == 'edit-btn' ||
+                event.target.id == 'view-btn' || 
+                event.target.id == 'special-btn'
+            )
+        ){
+            closeDropdown(0);
+            closeDropdown(1);
+            closeDropdown(2);
+            closeDropdown(3);
+            closeDropdown(4);
+        }
+    }
+    catch(error){
+        console.log(error);
+    }
+})
+
+
+
+// CLICK FOCUS FUNCTIONS
+function focusIcon(element){
+    const img = element.children[0];
+    const text = element.children[1];
+
+    text.style.backgroundColor = 'black';
+    text.style.color = 'white';
+
+    switch(element.id){
+        case 'about-btn':
+            img.src = 'images/document-focus.png';
+            break;
+        case 'projects-btn':
+            img.src = 'images/processor-focus.png'
+            break;
+        case 'downloads-btn':
+            img.src = 'images/floppy-disk-focus.png'
+            break;
+    }
+}
+
+function removeFocusIcon(element){
+    const img = element.children[0];
+    const text = element.children[1];
+
+    text.style.backgroundColor = 'white';
+    text.style.color = 'black';
+
+    switch(element.id){
+        case 'about-btn':
+            img.src = 'images/document.png';
+            break;
+        case 'projects-btn':
+            img.src = 'images/processor.png'
+            break;
+        case 'downloads-btn':
+            img.src = 'images/floppy-disk.png'
+            break;
+    }
+
+    STACK.setFocus(null);
+}
+
+function removeFocusAllIcons(){
+    removeFocusIcon(document.querySelector(`#about-btn`));
+    removeFocusIcon(document.querySelector(`#projects-btn`));
+    removeFocusIcon(document.querySelector(`#downloads-btn`));
+
+    STACK.setFocus(null);
+}
+
+aboutBtn.addEventListener('click',()=>{
+    focusIcon(document.querySelector(`#about-btn`));
+    removeFocusIcon(document.querySelector(`#projects-btn`));
+    removeFocusIcon(document.querySelector(`#downloads-btn`));
+    STACK.setFocus('about-icon');
+});
+
+projectsBtn.addEventListener('click',()=>{
+    focusIcon(document.querySelector(`#projects-btn`));
+    removeFocusIcon(document.querySelector(`#about-btn`));
+    removeFocusIcon(document.querySelector(`#downloads-btn`));
+    STACK.setFocus('projects-icon');
+})
+
+downloadsBtn.addEventListener('click',()=>{
+    focusIcon(document.querySelector(`#downloads-btn`));
+    removeFocusIcon(document.querySelector(`#about-btn`));
+    removeFocusIcon(document.querySelector(`#projects-btn`));
+    STACK.setFocus('downloads-icon');
+})
+
+// REMOVING FOCUS
+document.body.addEventListener('click',(event)=>{
+    let temp = event.target.className;
+    if(temp == 'shortcuts' || temp == 'credits' || temp == 'about-window' || temp == 'projects-window' || temp == 'downloads-window'){
+        removeFocusAllIcons();
+    }
+})
+
+
+
+// TOOLBAR FUNCTIONS
+document.body.addEventListener('click', (event)=>{
+    
+    switch(event.target.id){
+        case 'toolbar-link-0':
+            if(STACK.getFocus()){
+                if(STACK.getFocus() == 'about-icon'){
+                    displayAbout();
+                    return;
+                }
+            }
+            else{
+                return;
+            }
+    }
+})

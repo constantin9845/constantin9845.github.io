@@ -79,17 +79,28 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+
+    cursor: default;
 }
 
 .tool-bar i{
     margin-left: 2%;
-    margin-right: 4%;
     font-size: 14px;
+    height: 100%;
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .tool-bar p{
-    margin-right: 4%;
     font-size: 14px;
+    padding-left: 1%;
+    padding-right: 1%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ui-content{
@@ -141,12 +152,12 @@
 .credits p{
     margin-left: 2%;
     margin-bottom: 2%;
+    font-size: 10px;
 }
 
 
 /* ABOUT WINDOW */
-.about-window{
-    z-index: 99;    
+.about-window{   
     width: 70%;
     height: 60%;
     background-color: white;
@@ -172,7 +183,6 @@
 }
 
 .close-btn-container{
-    z-index: 999;
     position: absolute;
     left:1%;
     top: 2%;
@@ -276,7 +286,6 @@
     padding: 2px;
 }
 
-
 .imageDiv{
     width: 40%;
 }
@@ -291,8 +300,7 @@
 PROJECTS
 */
 
-.projects-window{
-    z-index: 99;    
+.projects-window{   
     width: 70%;
     height: 60%;
     background-color: white;
@@ -348,8 +356,7 @@ PROJECTS
 PROJECT
 */
 
-.project-window{
-    z-index: 99;    
+.project-window{   
     width: 70%;
     height: 60%;
     background-color: white;
@@ -374,6 +381,10 @@ PROJECT
     align-items: center;
 }
 
+.project-toolbar div p{
+    font-size: 12px;
+}
+
 .project-content{
     width: 100%;
     height: 95%;
@@ -383,13 +394,106 @@ PROJECT
 
 .project-content p{
     font-size: 12px;
+    margin: 5% 2% 0 5%;
 }
 
 .project-content ul{
+    margin-left: 5%;
     margin-top: 5%;
     font-size: 14px;
+    list-style: none;
 }
 
 .project-content a{
-    text-decoration: none;
+    font-size: 12px;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+/* DOWNLOADS */
+.downloads-window{    
+    width: 70%;
+    height: 60%;
+    background-color: white;
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 2% 0;
+    overflow-y: scroll;
+
+    -webkit-box-shadow: 2px 2px 1px 2px #000000; 
+    box-shadow: 2px 2px 1px 2px #000000;
+}
+
+.downloads-toolbar{
+    height: 5%;
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.downloads-content p{
+    font-size: 12px;
+    margin: 5% 2% 2% 2%;
+}
+
+.downloads-content ul{
+    font-size: 12px;
+    margin: 5% 2% 2% 2%;
+    list-style: none;
+}
+
+.downloads-content ul li{
+    margin-bottom: 2%;
+}
+
+/*
+    Toolbar dropdown
+*/
+
+.dropdown-menu{
+    position: absolute;
+    top: 0;
+    background-color: white;
+    font-size: 14px;
+    width: 20%;
+    -webkit-box-shadow: 2px 2px 1px 2px #000000; 
+    box-shadow: 2px 2px 1px 2px #000000;
+    cursor: default;
+}
+
+.dropdown-menu p{
+    overflow-x: hidden;
+    padding-left: 2%;
+}
+
+
+.apple-dropdown{
+    left: 2%;
+}
+
+.apple-dropdown p:nth-child(1){
+    border-bottom: 1px dotted black;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.file-dropdown{
+    left: 7%;
+}
+
+.edit-dropdown{
+    left: 12%;
+}
+
+.view-dropdown{
+    left: 18%;
+}
+
+.special-dropdown{
+    left: 23%;
 }
