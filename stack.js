@@ -3,6 +3,7 @@ export class stack{
     #tabArray;
     #size;
     #focus;
+    #toolbar_section;
    /*
         z-index
         tab 0 : 90
@@ -19,6 +20,7 @@ export class stack{
         this.#tabArray = new Array(8);
         this.#size = 0;
         this.#focus = null;
+        this.#toolbar_section = null;
     }
 
     checkOpen(tab){
@@ -142,5 +144,67 @@ export class stack{
 
     setFocus(element){
         this.#focus = element;
+    }
+
+    getToolbarSection(){
+        return this.#toolbar_section;
+    }
+
+    setToolbarSection(toolbarBtn){
+        this.#toolbar_section = toolbarBtn;
+    }
+
+    getFileInfo(type){
+        switch(type){
+            // about window
+            case 0:
+                return [
+                    'TeachText Document',
+                    '5736 Bytes, accounts for 6K on disk',
+                    `System Disk, ${navigator.platform}`,
+                    Date.now(),
+                    Date.now(),
+                    'images/document.png'
+                ];
+            case 1:
+                return [
+                    'folder',
+                    'COUNT, accounts for 6K on disk',
+                    `System Disk, ${navigator.platform}`,
+                    Date.now(),
+                    Date.now(),
+                    'images/processor.png'
+                ];
+            case 2:
+                return [
+                    'folder',
+                    '233002576 Bytes, accounts for 234MB on disk',
+                    `System Disk, ${navigator.platform}`,
+                    Date.now(),
+                    Date.now(),
+                    'images/floppy-disk.png'
+                ];
+            case 3:
+                return [
+                    'TeachText Document',
+                    '3600 Bytes, accounts for 4K on disk',
+                    `System Disk, ${navigator.platform}`,
+                    Date.now(),
+                    Date.now(),
+                    'images/processor.png'
+                ];
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+                return [
+                    'TeachText Document',
+                    '3864 Bytes, accounts for 4K on disk',
+                    `System Disk, ${navigator.platform}`,
+                    Date.now(),
+                    Date.now(),
+                    'images/processor.png'
+                ];
+        }
     }
 }

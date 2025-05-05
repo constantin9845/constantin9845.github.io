@@ -50,35 +50,13 @@ document.body.addEventListener('click',(event)=>{
 // PROJECTS TAB
 projectsBtn.addEventListener('dblclick', ()=>{
 
-    if(STACK.checkOpen('projects-window')==-1){
-        const projectsWindow = createProjects();
-
-        UI_CONTENT.appendChild(projectsWindow);
-
-        dragWindow(projectsWindow);
-
-        STACK.openTab('projects-window');
-    }
-    else{
-        STACK.moveFront('projects-window');
-    }
+    displayProjects();
 })
 
 // DOWNLOADS TAB
 downloadsBtn.addEventListener('dblclick', ()=>{
 
-    if(STACK.checkOpen('downloads-window')==-1){
-        const downloadsWindow = createDownloads();
-
-        UI_CONTENT.appendChild(downloadsWindow);
-
-        dragWindow(downloadsWindow);
-
-        STACK.openTab('downloads-window');
-    }
-    else{
-        STACK.moveFront('downloads-window');
-    }
+    displayDownloads();
 })
 
 // Single project 
@@ -496,6 +474,113 @@ function displayAbout(){
     }
 }
 
+function displayProjects(){
+    if(STACK.checkOpen('projects-window')==-1){
+        const projectsWindow = createProjects();
+
+        UI_CONTENT.appendChild(projectsWindow);
+
+        dragWindow(projectsWindow);
+
+        STACK.openTab('projects-window');
+    }
+    else{
+        STACK.moveFront('projects-window');
+    }
+}
+
+function displayDownloads(){
+    if(STACK.checkOpen('downloads-window')==-1){
+        const downloadsWindow = createDownloads();
+
+        UI_CONTENT.appendChild(downloadsWindow);
+
+        dragWindow(downloadsWindow);
+
+        STACK.openTab('downloads-window');
+    }
+    else{
+        STACK.moveFront('downloads-window');
+    }
+}
+
+function displayInfo(type){
+    
+    const infoWindow = createInfo(type);
+    UI_CONTENT.appendChild(infoWindow);
+    dragWindow(infoWindow);
+    STACK.openTab('info-window');
+
+}
+
+function createInfo(type){
+
+    const titles = ['About me','Projects','Downloads','File-lock Desktop','Studio','File-lock CLI','AES Library','Trivium Cipher'];
+
+    const infoWindow = document.createElement('div');
+    infoWindow.classList.add('info-window');
+
+    const infoWindowToolbar = document.createElement('div');
+    const closeBtnContainer = document.createElement('div');
+    closeBtnContainer.classList.add('close-btn-container')
+    const closeBtn = document.createElement('div');
+    closeBtn.classList.add('close-info-btn');
+    closeBtnContainer.appendChild(closeBtn)
+    const titleContainer = document.createElement('div');
+    titleContainer.classList.add('title-container');
+    const title = document.createElement('p');
+    titleContainer.appendChild(title);
+    title.textContent = `About ${titles[type]}`;
+
+    infoWindowToolbar.classList.add('info-toolbar');
+    infoWindowToolbar.appendChild(closeBtnContainer);
+    infoWindowToolbar.appendChild(titleContainer);
+
+    const info_title_container = document.createElement('div');
+    info_title_container.classList.add('info-title-container')
+    const info_title = document.createElement('p');
+    info_title.classList.add('info-title');
+    info_title.textContent = titles[type];
+
+    let info_icon = document.createElement('img');
+
+    info_title_container.appendChild(info_title);
+    info_title_container.appendChild(info_icon);
+
+    const statsContainer = document.createElement('div');
+    statsContainer.classList.add('stats');
+
+    const stats = ['Kind:','Size:','Where:','Created:','Modified:'];
+    const answers = STACK.getFileInfo(type);
+
+    info_icon.src = answers[stats.length];
+
+    for(let i = 0; i < stats.length; i++){
+        const tempContainer = document.createElement('div');
+        const left = document.createElement('p');
+        const right = document.createElement('p');
+
+        left.classList.add('stats-left');
+        right.classList.add('stats-right');
+
+        left.textContent = stats[i];
+        right.textContent = answers[i];
+
+        tempContainer.appendChild(left);
+        tempContainer.appendChild(right);
+
+        tempContainer.classList.add('stats-row');
+
+        statsContainer.appendChild(tempContainer);
+    }
+
+    infoWindow.appendChild(infoWindowToolbar);
+    infoWindow.appendChild(info_title_container);
+    infoWindow.appendChild(statsContainer);
+
+    return infoWindow;
+}
+
 // TOP Toolbar
 const appleBtn = document.getElementById('apple-btn');
 const fileBtn = document.getElementById('file-btn');
@@ -691,9 +776,11 @@ appleBtn.addEventListener('click', ()=>{
 
     if(temp){
         closeDropdown(0);
+        STACK.setToolbarSection(null);
     }
     else{
         openDropdown(0);
+        STACK.setToolbarSection('apple');
     }
 });
 
@@ -708,9 +795,11 @@ fileBtn.addEventListener('click',()=>{
 
     if(temp){
         closeDropdown(1);
+        STACK.setToolbarSection(null);
     }
     else{
         openDropdown(1);
+        STACK.setToolbarSection('file');
     }
 });
 
@@ -725,9 +814,11 @@ editBtn.addEventListener('click',()=>{
 
     if(temp){
         closeDropdown(2);
+        STACK.setToolbarSection(null);
     }
     else{
         openDropdown(2);
+        STACK.setToolbarSection('edit');
     }
 });
 
@@ -742,9 +833,11 @@ viewBtn.addEventListener('click',()=>{
 
     if(temp){
         closeDropdown(3);
+        STACK.setToolbarSection(null);
     }
     else{
         openDropdown(3);
+        STACK.setToolbarSection('view');
     }
 });
 
@@ -759,9 +852,11 @@ specialBtn.addEventListener('click',()=>{
 
     if(temp){
         closeDropdown(4);
+        STACK.setToolbarSection(null);
     }
     else{
         openDropdown(4);
+        STACK.setToolbarSection('special');
     }
 });
 
@@ -786,6 +881,7 @@ document.body.addEventListener('click',(event)=>{
             closeDropdown(2);
             closeDropdown(3);
             closeDropdown(4);
+            STACK.setToolbarSection(null);
         }
     }
     catch(error){
@@ -881,15 +977,48 @@ document.body.addEventListener('click',(event)=>{
 document.body.addEventListener('click', (event)=>{
     
     switch(event.target.id){
+
+        // OPEN FILE
         case 'toolbar-link-0':
             if(STACK.getFocus()){
-                if(STACK.getFocus() == 'about-icon'){
+                if(STACK.getFocus() == 'about-icon' && STACK.getToolbarSection() == 'file'){
                     displayAbout();
+                    return;
+                }
+                else if(STACK.getFocus() == 'projects-icon' && STACK.getToolbarSection() == 'file'){
+                    displayProjects();
+                    return;
+                }
+                else if(STACK.getFocus() == 'downloads-icon' && STACK.getToolbarSection() == 'file'){
+                    displayDownloads();
                     return;
                 }
             }
             else{
                 return;
             }
+            break;
+
+        // GET INFO
+        case 'toolbar-link-2':
+            if(STACK.getFocus()){
+                if(STACK.getFocus() == 'about-icon' && STACK.getToolbarSection() == 'file'){
+                    displayInfo(0);
+                    return;
+                }
+                else if(STACK.getFocus() == 'projects-icon' && STACK.getToolbarSection() == 'file'){
+                    displayInfo(1);
+                    return;
+                }
+                else if(STACK.getFocus() == 'downloads-icon' && STACK.getToolbarSection() == 'file'){
+                    displayInfo(2);
+                    return;
+                }
+            }
+            else{
+                return;
+            }
+            break;
+
     }
 })
