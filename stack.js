@@ -17,14 +17,13 @@ export class stack{
     */
 
     constructor(){
-        this.#tabArray = new Array(8);
-        this.#size = 0;
+        this.#tabArray = new Array();
         this.#focus = null;
         this.#toolbar_section = null;
     }
 
     checkOpen(tab){
-        for(let i = 0; i < this.#size; i++){
+        for(let i = 0; i < this.#tabArray.length; i++){
             if(tab == this.#tabArray[i]){
                 return i;
             }
@@ -34,19 +33,19 @@ export class stack{
 
     moveFront(tab){
         
-        if(this.#size == 1){
+        if(this.#tabArray.length == 1){
             this.printTabOrder()
             return;
         }
         else{
             let index = this.checkOpen(tab);
 
-            if(index == this.#size-1){
-                this.printTabOrder()
+            if(index == this.#tabArray.length-1){
+                this.printTabOrder();
                 return;
             }
 
-            if(index == this.#size-2){
+            if(index == this.#tabArray.length-2){
                 let temp = this.#tabArray[index];
                 this.#tabArray[index] = this.#tabArray[index+1];
                 this.#tabArray[index+1] = temp;
@@ -55,7 +54,7 @@ export class stack{
                 return;
             }
             else{
-                for(let i = index; i < this.#size-1; i++){
+                for(let i = index; i < this.#tabArray.length-1; i++){
                     let temp = this.#tabArray[i];
                     this.#tabArray[i] = this.#tabArray[i+1];
                     this.#tabArray[i+1] = temp;
@@ -70,28 +69,28 @@ export class stack{
 
     closeTab(index){
 
-        if(this.#size == 1 || index == this.#size-1){
-            this.#size--;
+        if(this.#tabArray.length == 1 || index == this.#tabArray.length-1){
+            this.#tabArray.pop();
 
             this.printTabOrder();
             this.updateTabIndexes();
             return;
         }
-        else if(index == this.#size-2){
+        else if(index == this.#tabArray.length-2){
             this.#tabArray[index] = this.#tabArray[index+1];
-            this.#size--;
+            this.#tabArray.pop();
 
             this.printTabOrder();
             this.updateTabIndexes();
             return;
         }
         else{
-            if(index != this.#size-1){
-                for(let i = index; i < this.#size-1; i++){
+            if(index != this.#tabArray.length-1){
+                for(let i = index; i < this.#tabArray.length-1; i++){
                     this.#tabArray[i] = this.#tabArray[i+1];
                 }
             }
-            this.#size--;
+            this.#tabArray.pop();
             this.printTabOrder();
             this.updateTabIndexes();
             return;
@@ -105,34 +104,40 @@ export class stack{
             this.moveFront(ID);
         }
         else{
-            this.#tabArray[this.#size] = ID;
-            this.#size++;
+            this.#tabArray.push(ID)
         }
 
         this.updateTabIndexes();
-
         this.printTabOrder();
     }
 
     updateTabIndexes(){
         let index = 90;
-        for(let i = 0; i < this.#size; i++){
+        for(let i = 0; i < this.#tabArray.length; i++){
             if(document.querySelector(`.${this.#tabArray[i]}`))
                 document.querySelector(`.${this.#tabArray[i]}`).style.zIndex = `${index++}`;
         }
     }
 
     getTopTab(){
-        if(this.#size == 0){
+        if(this.#tabArray.length == 0){
             return null;
         }
-        return this.#tabArray[this.#size-1];
+        return this.#tabArray[this.#tabArray.length-1];
+    }
+
+    getAllTabs(){
+        let temp = new Array(0);
+        for(let i = 0; i < this.#tabArray.length; i++){
+            temp.push(this.#tabArray[i]);
+        }
+        return temp;
     }
 
     printTabOrder(){
         console.log("************")
         console.log('TABS:')
-        for(let i = 0; i < this.#size; i++){
+        for(let i = 0; i < this.#tabArray.length; i++){
             console.log(this.#tabArray[i])
         }
         console.log("************")

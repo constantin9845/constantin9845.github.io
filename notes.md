@@ -42,3 +42,13 @@
 - Clean Up
 - Empty Trash
 - Erase Disk
+
+
+## To do
+
+- scroll bar effects
+- fix smaller screen issues
+- add downloads links
+- low fps effects
+- add startup effect
+- mobile version

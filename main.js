@@ -19,32 +19,13 @@ aboutBtn.addEventListener('dblclick', ()=>{
 
 });
 
-// close 
+// CLOSE TABS 
 document.body.addEventListener('click',(event)=>{
-    if(event.target.matches('.close-about-btn')){
-        destroyAbout();
+
+    if(event.target.classList[0] == 'close-btn'){
+        destroyWindow(event.target.classList[1].substring(1));
     }
-    else if(event.target.matches('.close-projects-btn') && event.target.classList.length == 1){
-        destroyProjects();
-    }
-    else if(event.target.matches('.close-downloads-btn')){
-        destroyDownloads();
-    }
-    else if(event.target.classList[0] == 'close-project-btn' && event.target.classList[1] == 'project0'){
-        destroyProject(0);
-    }
-    else if(event.target.classList[0] == 'close-project-btn' && event.target.classList[1] == 'project1'){
-        destroyProject(1);
-    }
-    else if(event.target.classList[0] == 'close-project-btn' && event.target.classList[1] == 'project2'){
-        destroyProject(2);
-    }
-    else if(event.target.classList[0] == 'close-project-btn' && event.target.classList[1] == 'project3'){
-        destroyProject(3);
-    }
-    else if(event.target.classList[0] == 'close-project-btn' && event.target.classList[1] == 'project4'){
-        destroyProject(4);
-    }
+
 });
 
 // PROJECTS TAB
@@ -76,19 +57,61 @@ document.body.addEventListener('dblclick', (event)=>{
 
         if(STACK.checkOpen(temp2[index])==-1){
 
-            const newProject = createProject(index);
-
-            UI_CONTENT.appendChild(newProject);
-
-            dragWindow(newProject);
-
-            STACK.openTab(temp2[index]);
+            displayProject(index);
         }
         else{
             STACK.moveFront(temp2[index]);
         }
     }
 
+});
+
+// Focus on single project
+document.body.addEventListener('click', (event)=>{
+
+    if(STACK.getTopTab() == 'projects-window'){
+        let temp = ['project0','project1','project2','project3','project4'];
+        let temp2 = ['project00','project11','project22','project33','project44'];
+
+        if(temp.includes(event.target.classList[1]) || temp.includes(event.target.parentElement.classList[1])){
+            let index = -1; 
+            for(let j = 0; j < 5; j++){
+                if(event.target.id == temp[j] || event.target.parentElement.id == temp[j]){
+                    index = j;
+                    break;
+                }
+            }
+
+            removeFocusProjectIcons();
+            focusProjectIcon(document.querySelector(`.project${index}`));
+            STACK.setFocus(`project${index}`);
+        }
+        else{
+
+            try{
+                if(
+                    !(
+                        event.target.id == 'toolbar-link-0' ||
+                        event.target.id == 'toolbar-link-1' ||
+                        event.target.id == 'toolbar-link-2' ||
+                        event.target.id == 'toolbar-link-3' ||
+                        event.target.id == 'toolbar-link-4' ||
+                        event.target.id == 'apple-btn' ||
+                        event.target.id == 'file-btn' ||
+                        event.target.id == 'edit-btn' ||
+                        event.target.id == 'view-btn' || 
+                        event.target.id == 'special-btn'
+                    )
+                ){
+                    removeFocusProjectIcons();
+                    STACK.setFocus(null);
+                }
+            }
+            catch(error){
+                console.log(error);
+            }
+        }
+    }
 })
 
 // Drag about section
@@ -133,7 +156,8 @@ function dragWindow(element){
 // Move tab to front
 document.body.addEventListener('click',(event)=>{
     let current = event.target;
-    let tabs = ['about-window','projects-window','downloads-window','project00','project11','project22','project33','project44'];
+    // get all open tabs
+    let tabs = STACK.getAllTabs();
     let parents = [];
 
     while(current.parentElement){
@@ -141,7 +165,7 @@ document.body.addEventListener('click',(event)=>{
             parents.push(current.parentElement.className);
         }
         else{
-            parents.push(current.parentElement.classList[1]);
+            parents.push(current.parentElement.classList[0]);
         }
         current = current.parentElement;
     }
@@ -164,6 +188,8 @@ function createAbout(){
     const closeBtnContainer = document.createElement('div');
     closeBtnContainer.classList.add('close-btn-container')
     const closeBtn = document.createElement('div');
+    closeBtn.classList.add('close-btn');
+    closeBtn.classList.add('-about-window');
     closeBtn.classList.add('close-about-btn');
     closeBtnContainer.appendChild(closeBtn)
     const titleContainer = document.createElement('div');
@@ -237,6 +263,8 @@ function createProjects(){
     const closeBtnContainer = document.createElement('div');
     closeBtnContainer.classList.add('close-btn-container')
     const closeBtn = document.createElement('div');
+    closeBtn.classList.add('close-btn');
+    closeBtn.classList.add('-projects-window');
     closeBtn.classList.add('close-projects-btn');
     closeBtnContainer.appendChild(closeBtn)
     const titleContainer = document.createElement('div');
@@ -287,6 +315,8 @@ function createDownloads(){
     const closeBtnContainer = document.createElement('div');
     closeBtnContainer.classList.add('close-btn-container')
     const closeBtn = document.createElement('div');
+    closeBtn.classList.add('close-btn');
+    closeBtn.classList.add('-downloads-window');
     closeBtn.classList.add('close-downloads-btn');
     closeBtnContainer.appendChild(closeBtn)
     const titleContainer = document.createElement('div');
@@ -363,8 +393,9 @@ function createProject(projectNumber){
     const closeBtnContainer = document.createElement('div');
     closeBtnContainer.classList.add('close-btn-container')
     const closeBtn = document.createElement('div');
+    closeBtn.classList.add('close-btn');
+    closeBtn.classList.add(`-project${projectNumber}${projectNumber}`);
     closeBtn.classList.add('close-project-btn');
-    closeBtn.classList.add(`project${projectNumber}`);
     closeBtnContainer.appendChild(closeBtn)
     const titleContainer = document.createElement('div');
     titleContainer.classList.add('title-container');
@@ -404,55 +435,16 @@ function createProject(projectNumber){
     return projectWindow;
 }
 
-function destroyAbout(){
-    const temp = UI_CONTENT.querySelector('.about-window');
-
-    if(temp){
-        UI_CONTENT.removeChild(temp);
-        STACK.closeTab(STACK.checkOpen('about-window'));
-    }
-}
-
-function destroyProject(projectNumber){
-    const temp = UI_CONTENT.querySelector(`.project${projectNumber}${projectNumber}`);
-
-    if(temp){
-        UI_CONTENT.removeChild(temp);
-        STACK.closeTab(STACK.checkOpen(`project${projectNumber}${projectNumber}`));
-    }
-}
-
-function destroyProjects(){
-    const temp = UI_CONTENT.querySelector('.projects-window');
-
-    if(temp){
-       
-        UI_CONTENT.removeChild(temp);
-        STACK.closeTab(STACK.checkOpen('projects-window'));
-    }
-}
-
-function destroyDownloads(){
-    const temp = UI_CONTENT.querySelector('.downloads-window');
-
-    if(temp){
-       
-        UI_CONTENT.removeChild(temp);
-        STACK.closeTab(STACK.checkOpen('downloads-window'));
-    }
-}
-
 function createTable(data){
     const table = document.createElement('table');
 
-    for(let i = 0; i < data.length; i+=3){
+    for(let i = 0; i < data.length; i+=2){
         let row = document.createElement('tr');
         let td1 = document.createElement('td');
         let td2 = document.createElement('td');
-        let td3 = document.createElement('td');
 
-        td1.innerHTML = data[i]; td2.innerHTML = data[i+1]; td3.innerHTML = data[i+2];
-        row.appendChild(td1); row.appendChild(td2); row.appendChild(td3);
+        td1.innerHTML = data[i]; td2.innerHTML = data[i+1];
+        row.appendChild(td1); row.appendChild(td2);
         table.appendChild(row);
     }
 
@@ -507,9 +499,10 @@ function displayDownloads(){
 function displayInfo(type){
     
     const infoWindow = createInfo(type);
+    infoWindow.id = `info${type}`;
     UI_CONTENT.appendChild(infoWindow);
     dragWindow(infoWindow);
-    STACK.openTab('info-window');
+    STACK.openTab(`info${type}`);
 
 }
 
@@ -518,12 +511,15 @@ function createInfo(type){
     const titles = ['About me','Projects','Downloads','File-lock Desktop','Studio','File-lock CLI','AES Library','Trivium Cipher'];
 
     const infoWindow = document.createElement('div');
+    infoWindow.classList.add(`info${type}`);
     infoWindow.classList.add('info-window');
 
     const infoWindowToolbar = document.createElement('div');
     const closeBtnContainer = document.createElement('div');
-    closeBtnContainer.classList.add('close-btn-container')
+    closeBtnContainer.classList.add('close-btn-container');
     const closeBtn = document.createElement('div');
+    closeBtn.classList.add('close-btn');
+    closeBtn.classList.add(`-info${type}`)
     closeBtn.classList.add('close-info-btn');
     closeBtnContainer.appendChild(closeBtn)
     const titleContainer = document.createElement('div');
@@ -579,6 +575,27 @@ function createInfo(type){
     infoWindow.appendChild(statsContainer);
 
     return infoWindow;
+}
+
+function displayProject(projectNumber){
+
+    const newProject = createProject(projectNumber);
+
+    UI_CONTENT.appendChild(newProject);
+
+    dragWindow(newProject);
+
+    STACK.openTab(`project${projectNumber}${projectNumber}`);
+}
+
+// DESTROY WINDOW
+function destroyWindow(className){
+    const temp = UI_CONTENT.querySelector(`.${className}`);
+
+    if(temp){
+        UI_CONTENT.removeChild(temp);
+        STACK.closeTab(STACK.checkOpen(className));
+    }
 }
 
 // TOP Toolbar
@@ -722,7 +739,15 @@ function getAvailableFunctions(type){
                 document.querySelector('#toolbar-link-1').style.color = 'grey';
                 document.querySelector('#toolbar-link-2').style.color = 'grey';
             }
-            else if(STACK.getFocus() == 'about-icon' || STACK.getFocus() == 'projects-icon' || STACK.getFocus() == 'downloads-icon'){
+            else if(STACK.getFocus() == 'about-icon' || 
+                STACK.getFocus() == 'projects-icon' || 
+                STACK.getFocus() == 'downloads-icon' ||
+                STACK.getFocus() == 'project0' ||
+                STACK.getFocus() == 'project1' ||
+                STACK.getFocus() == 'project2' ||
+                STACK.getFocus() == 'project3' ||
+                STACK.getFocus() == 'project4' 
+            ){
                 document.querySelector('#toolbar-link-0').style.color = 'black';
                 document.querySelector('#toolbar-link-2').style.color = 'black';
             }
@@ -912,6 +937,36 @@ function focusIcon(element){
     }
 }
 
+function focusProjectIcon(element){
+    try{
+        element.children[0].src = './images/floppy-disk-focus.png';
+        element.children[1].style.backgroundColor = 'black';
+        element.children[1].style.color = 'white';
+    }
+    catch(error){
+        console.log(error);
+    }
+    
+}
+
+function removeFocusProjectIcons(){
+    for(let i = 0; i < 5; i++){
+        removeFocusProjectIcon(document.querySelector(`.project${i}`));
+    }
+}
+
+function removeFocusProjectIcon(element){
+    try{
+        element.children[0].src = './images/floppy-disk.png';
+        element.children[1].style.backgroundColor = 'white';
+        element.children[1].style.color = 'black';
+    }
+    catch(error){
+        console.log(error)
+    }
+    
+}
+
 function removeFocusIcon(element){
     const img = element.children[0];
     const text = element.children[1];
@@ -943,23 +998,23 @@ function removeFocusAllIcons(){
 }
 
 aboutBtn.addEventListener('click',()=>{
-    focusIcon(document.querySelector(`#about-btn`));
     removeFocusIcon(document.querySelector(`#projects-btn`));
     removeFocusIcon(document.querySelector(`#downloads-btn`));
+    focusIcon(document.querySelector(`#about-btn`));
     STACK.setFocus('about-icon');
 });
 
 projectsBtn.addEventListener('click',()=>{
-    focusIcon(document.querySelector(`#projects-btn`));
     removeFocusIcon(document.querySelector(`#about-btn`));
     removeFocusIcon(document.querySelector(`#downloads-btn`));
+    focusIcon(document.querySelector(`#projects-btn`));
     STACK.setFocus('projects-icon');
 })
 
 downloadsBtn.addEventListener('click',()=>{
-    focusIcon(document.querySelector(`#downloads-btn`));
     removeFocusIcon(document.querySelector(`#about-btn`));
     removeFocusIcon(document.querySelector(`#projects-btn`));
+    focusIcon(document.querySelector(`#downloads-btn`));
     STACK.setFocus('downloads-icon');
 })
 
@@ -992,6 +1047,29 @@ document.body.addEventListener('click', (event)=>{
                 else if(STACK.getFocus() == 'downloads-icon' && STACK.getToolbarSection() == 'file'){
                     displayDownloads();
                     return;
+                }
+                else if(STACK.getFocus() == 'project0' && STACK.getToolbarSection() == 'file'){
+                    displayProject(0);
+                    return;
+                }
+                else if(STACK.getFocus() == 'project1' && STACK.getToolbarSection() == 'file'){
+                    displayProject(1);
+                    return;
+                }
+                else if(STACK.getFocus() == 'project2' && STACK.getToolbarSection() == 'file'){
+                    displayProject(2);
+                    return;
+                }
+                else if(STACK.getFocus() == 'project3' && STACK.getToolbarSection() == 'file'){
+                    displayProject(3);
+                    return;
+                }
+                else if(STACK.getFocus() == 'project4' && STACK.getToolbarSection() == 'file'){
+                    displayProject(4);
+                    return;
+                }
+                else{
+                    alert(STACK.getFocus());
                 }
             }
             else{
