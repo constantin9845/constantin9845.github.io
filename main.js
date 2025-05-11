@@ -111,6 +111,7 @@ document.body.addEventListener('click', (event)=>{
                 console.log(error);
             }
         }
+
     }
 })
 
@@ -206,7 +207,7 @@ function createAbout(){
     introContainer.classList.add('intro-container');
 
     const intro = document.createElement('p');
-    intro.textContent = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+    intro.textContent = "Lorem Ipsum is simply dummy text of the printing and typesetting indus. Lorem Ipsum is simply dummy text of the printing and typesetting indus. Lorem Ipsum is simply dummy text of the printing and typesetting indus. Lorem Ipsum is simply dummy text of the printing and typesetting indus.";
 
     introContainer.appendChild(intro);
 
@@ -496,22 +497,23 @@ function displayDownloads(){
     }
 }
 
-function displayInfo(type){
+function displayInfo(){
     
-    const infoWindow = createInfo(type);
-    infoWindow.id = `info${type}`;
+
+    const infoWindow = createInfo();
+    infoWindow.id = `info-${STACK.getFocus()}`;
     UI_CONTENT.appendChild(infoWindow);
     dragWindow(infoWindow);
-    STACK.openTab(`info${type}`);
+    STACK.openTab(`info-${STACK.getFocus()}`);
 
 }
 
-function createInfo(type){
+function createInfo(){
 
-    const titles = ['About me','Projects','Downloads','File-lock Desktop','Studio','File-lock CLI','AES Library','Trivium Cipher'];
+    const fileInfo = STACK.getFileInfo();
 
     const infoWindow = document.createElement('div');
-    infoWindow.classList.add(`info${type}`);
+    infoWindow.classList.add(`info-${STACK.getFocus()}`);
     infoWindow.classList.add('info-window');
 
     const infoWindowToolbar = document.createElement('div');
@@ -519,14 +521,14 @@ function createInfo(type){
     closeBtnContainer.classList.add('close-btn-container');
     const closeBtn = document.createElement('div');
     closeBtn.classList.add('close-btn');
-    closeBtn.classList.add(`-info${type}`)
+    closeBtn.classList.add(`-info-${STACK.getFocus()}`)
     closeBtn.classList.add('close-info-btn');
     closeBtnContainer.appendChild(closeBtn)
     const titleContainer = document.createElement('div');
     titleContainer.classList.add('title-container');
     const title = document.createElement('p');
     titleContainer.appendChild(title);
-    title.textContent = `About ${titles[type]}`;
+    title.textContent = `File Info`;
 
     infoWindowToolbar.classList.add('info-toolbar');
     infoWindowToolbar.appendChild(closeBtnContainer);
@@ -536,7 +538,7 @@ function createInfo(type){
     info_title_container.classList.add('info-title-container')
     const info_title = document.createElement('p');
     info_title.classList.add('info-title');
-    info_title.textContent = titles[type];
+    info_title.textContent = fileInfo[0];
 
     let info_icon = document.createElement('img');
 
@@ -547,11 +549,10 @@ function createInfo(type){
     statsContainer.classList.add('stats');
 
     const stats = ['Kind:','Size:','Where:','Created:','Modified:'];
-    const answers = STACK.getFileInfo(type);
 
-    info_icon.src = answers[stats.length];
+    info_icon.src = fileInfo[6];
 
-    for(let i = 0; i < stats.length; i++){
+    for(let i = 0, j = 2; i < stats.length; i++, j++){
         const tempContainer = document.createElement('div');
         const left = document.createElement('p');
         const right = document.createElement('p');
@@ -560,7 +561,7 @@ function createInfo(type){
         right.classList.add('stats-right');
 
         left.textContent = stats[i];
-        right.textContent = answers[i];
+        right.textContent = fileInfo[j];
 
         tempContainer.appendChild(left);
         tempContainer.appendChild(right);
@@ -1080,16 +1081,8 @@ document.body.addEventListener('click', (event)=>{
         // GET INFO
         case 'toolbar-link-2':
             if(STACK.getFocus()){
-                if(STACK.getFocus() == 'about-icon' && STACK.getToolbarSection() == 'file'){
-                    displayInfo(0);
-                    return;
-                }
-                else if(STACK.getFocus() == 'projects-icon' && STACK.getToolbarSection() == 'file'){
-                    displayInfo(1);
-                    return;
-                }
-                else if(STACK.getFocus() == 'downloads-icon' && STACK.getToolbarSection() == 'file'){
-                    displayInfo(2);
+                if(STACK.getFocus() != null && STACK.getToolbarSection() == 'file'){
+                    displayInfo();
                     return;
                 }
             }

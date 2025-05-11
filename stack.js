@@ -159,11 +159,12 @@ export class stack{
         this.#toolbar_section = toolbarBtn;
     }
 
-    getFileInfo(type){
-        switch(type){
+    getFileInfo(){
+        switch(this.#focus){
             // about window
-            case 0:
+            case 'about-icon':
                 return [
+                    'About me',
                     'TeachText Document',
                     '5736 Bytes, accounts for 6K on disk',
                     `System Disk, ${navigator.platform}`,
@@ -171,8 +172,9 @@ export class stack{
                     Date.now(),
                     'images/document.png'
                 ];
-            case 1:
+            case 'projects-icon':
                 return [
+                    'Projects',
                     'folder',
                     'COUNT, accounts for 6K on disk',
                     `System Disk, ${navigator.platform}`,
@@ -180,8 +182,9 @@ export class stack{
                     Date.now(),
                     'images/processor.png'
                 ];
-            case 2:
+            case 'downloads-icon':
                 return [
+                    'Downloads',
                     'folder',
                     '233002576 Bytes, accounts for 234MB on disk',
                     `System Disk, ${navigator.platform}`,
@@ -189,8 +192,9 @@ export class stack{
                     Date.now(),
                     'images/floppy-disk.png'
                 ];
-            case 3:
+            case 'project0':
                 return [
+                    'File-lock Desktop',
                     'TeachText Document',
                     '3600 Bytes, accounts for 4K on disk',
                     `System Disk, ${navigator.platform}`,
@@ -198,13 +202,41 @@ export class stack{
                     Date.now(),
                     'images/processor.png'
                 ];
-            case 4:
-            case 5:
-            case 6:
-            case 7:
+            case 'project1':
                 return [
+                    'Studio',
                     'TeachText Document',
-                    '3864 Bytes, accounts for 4K on disk',
+                    '3600 Bytes, accounts for 4K on disk',
+                    `System Disk, ${navigator.platform}`,
+                    Date.now(),
+                    Date.now(),
+                    'images/processor.png'
+                ];
+            case 'project2':
+                return [
+                    'File-lock CLI',
+                    'TeachText Document',
+                    '3600 Bytes, accounts for 4K on disk',
+                    `System Disk, ${navigator.platform}`,
+                    Date.now(),
+                    Date.now(),
+                    'images/processor.png'
+                ];
+            case 'project3':
+                return [
+                    'AES Library',
+                    'TeachText Document',
+                    '3600 Bytes, accounts for 4K on disk',
+                    `System Disk, ${navigator.platform}`,
+                    Date.now(),
+                    Date.now(),
+                    'images/processor.png'
+                ];
+            case 'project4':
+                return [
+                    'Trivium Cipher',
+                    'TeachText Document',
+                    '3600 Bytes, accounts for 4K on disk',
                     `System Disk, ${navigator.platform}`,
                     Date.now(),
                     Date.now(),
