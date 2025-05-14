@@ -7,8 +7,6 @@ const downloadsBtn = document.getElementById('downloads-btn');
 
 const UI_CONTENT = document.getElementById('ui-content');
 
-var SELECTED_TEXT = null;
-var COPIED_TEXT = null;
 var VIEW_STYLE = 0;
 
 
@@ -40,7 +38,7 @@ downloadsBtn.addEventListener('dblclick', ()=>{
     displayDownloads();
 })
 
-// Single project 
+// Open Single project 
 document.body.addEventListener('dblclick', (event)=>{
 
     let temp = ['project0','project1','project2','project3','project4'];
@@ -71,7 +69,6 @@ document.body.addEventListener('click', (event)=>{
 
     if(STACK.getTopTab() == 'projects-window'){
         let temp = ['project0','project1','project2','project3','project4'];
-        let temp2 = ['project00','project11','project22','project33','project44'];
 
         if(temp.includes(event.target.classList[1]) || temp.includes(event.target.parentElement.classList[1])){
             let index = -1; 
@@ -119,8 +116,8 @@ document.body.addEventListener('click', (event)=>{
 function dragWindow(element){
     var initialX = 0, initialY = 0, currentX = 0, currentY = 0;
 
-    if(element.querySelector('.about-toolbar')){
-        element.querySelector('.about-toolbar').onmousedown = dragMouseDown;
+    if(element.querySelector('.drag-toolbar')){
+        element.querySelector('.drag-toolbar').onmousedown = dragMouseDown;
     }
     else{
         element.onmousedown = dragMouseDown;
@@ -166,7 +163,7 @@ document.body.addEventListener('click',(event)=>{
             parents.push(current.parentElement.className);
         }
         else{
-            parents.push(current.parentElement.classList[0]);
+            parents.push(current.parentElement.classList[1]);
         }
         current = current.parentElement;
     }
@@ -200,6 +197,7 @@ function createAbout(){
     title.textContent = 'About me';
 
     aboutWindowToolbar.classList.add('about-toolbar');
+    aboutWindowToolbar.classList.add('drag-toolbar');
     aboutWindowToolbar.appendChild(closeBtnContainer);
     aboutWindowToolbar.appendChild(titleContainer);
 
@@ -275,6 +273,7 @@ function createProjects(){
     title.textContent = 'Projects';
 
     projectsWindowToolbar.classList.add('projects-toolbar');
+    projectsWindowToolbar.classList.add('drag-toolbar');
     projectsWindowToolbar.appendChild(closeBtnContainer);
     projectsWindowToolbar.appendChild(titleContainer);
 
@@ -327,6 +326,7 @@ function createDownloads(){
     title.textContent = 'Downloads';
 
     downloadsWindowToolbar.classList.add('downloads-toolbar');
+    downloadsWindowToolbar.classList.add('drag-toolbar');
     downloadsWindowToolbar.appendChild(closeBtnContainer);
     downloadsWindowToolbar.appendChild(titleContainer);
 
@@ -405,6 +405,7 @@ function createProject(projectNumber){
     title.textContent = projectNames[projectNumber];
 
     projectWindowToolbar.classList.add('project-toolbar');
+    projectWindowToolbar.classList.add('drag-toolbar');
     projectWindowToolbar.appendChild(closeBtnContainer);
     projectWindowToolbar.appendChild(titleContainer);
 
@@ -499,12 +500,16 @@ function displayDownloads(){
 
 function displayInfo(){
     
-
-    const infoWindow = createInfo();
-    infoWindow.id = `info-${STACK.getFocus()}`;
-    UI_CONTENT.appendChild(infoWindow);
-    dragWindow(infoWindow);
-    STACK.openTab(`info-${STACK.getFocus()}`);
+    if(STACK.checkOpen(`info-${STACK.getFocus()}`) == -1){
+        const infoWindow = createInfo();
+        infoWindow.id = `info-${STACK.getFocus()}`;
+        UI_CONTENT.appendChild(infoWindow);
+        dragWindow(infoWindow);
+        STACK.openTab(`info-${STACK.getFocus()}`);
+    }
+    else{
+        STACK.moveFront(`info-${STACK.getFocus()}`);
+    }
 
 }
 
@@ -513,8 +518,8 @@ function createInfo(){
     const fileInfo = STACK.getFileInfo();
 
     const infoWindow = document.createElement('div');
-    infoWindow.classList.add(`info-${STACK.getFocus()}`);
     infoWindow.classList.add('info-window');
+    infoWindow.classList.add(`info-${STACK.getFocus()}`);
 
     const infoWindowToolbar = document.createElement('div');
     const closeBtnContainer = document.createElement('div');
@@ -531,6 +536,7 @@ function createInfo(){
     title.textContent = `File Info`;
 
     infoWindowToolbar.classList.add('info-toolbar');
+    infoWindowToolbar.classList.add('drag-toolbar');
     infoWindowToolbar.appendChild(closeBtnContainer);
     infoWindowToolbar.appendChild(titleContainer);
 
@@ -580,13 +586,18 @@ function createInfo(){
 
 function displayProject(projectNumber){
 
-    const newProject = createProject(projectNumber);
+    if(STACK.checkOpen(`project${projectNumber}${projectNumber}`) == -1){
+        const newProject = createProject(projectNumber);
 
-    UI_CONTENT.appendChild(newProject);
+        UI_CONTENT.appendChild(newProject);
 
-    dragWindow(newProject);
+        dragWindow(newProject);
 
-    STACK.openTab(`project${projectNumber}${projectNumber}`);
+        STACK.openTab(`project${projectNumber}${projectNumber}`);
+    }
+    else{
+        STACK.moveFront(`project${projectNumber}${projectNumber}`);
+    }
 }
 
 // DESTROY WINDOW
@@ -740,9 +751,9 @@ function getAvailableFunctions(type){
                 document.querySelector('#toolbar-link-1').style.color = 'grey';
                 document.querySelector('#toolbar-link-2').style.color = 'grey';
             }
-            else if(STACK.getFocus() == 'about-icon' || 
-                STACK.getFocus() == 'projects-icon' || 
-                STACK.getFocus() == 'downloads-icon' ||
+            else if(STACK.getFocus() == 'about-window' || 
+                STACK.getFocus() == 'projects-window' || 
+                STACK.getFocus() == 'downloads-window' ||
                 STACK.getFocus() == 'project0' ||
                 STACK.getFocus() == 'project1' ||
                 STACK.getFocus() == 'project2' ||
@@ -763,18 +774,8 @@ function getAvailableFunctions(type){
             break;
 
         case 2:
-            if(SELECTED_TEXT == null){
-                document.querySelector('#toolbar-link-0').style.color = 'grey';
-                document.querySelector('#toolbar-link-1').style.color = 'grey';
-
-                if(COPIED_TEXT == null){
-                    document.querySelector('#toolbar-link-2').style.color = 'grey';
-                }
-            }
-            else{
-                if(COPIED_TEXT == null){
-                    document.querySelector('#toolbar-link-2').style.color = 'grey';
-                }
+            if(STACK.getTextFocus() != null){
+                document.querySelector('#toolbar-link-1').style.color = 'black';
             }
             break;
         
@@ -1002,21 +1003,21 @@ aboutBtn.addEventListener('click',()=>{
     removeFocusIcon(document.querySelector(`#projects-btn`));
     removeFocusIcon(document.querySelector(`#downloads-btn`));
     focusIcon(document.querySelector(`#about-btn`));
-    STACK.setFocus('about-icon');
+    STACK.setFocus('about-window');
 });
 
 projectsBtn.addEventListener('click',()=>{
     removeFocusIcon(document.querySelector(`#about-btn`));
     removeFocusIcon(document.querySelector(`#downloads-btn`));
     focusIcon(document.querySelector(`#projects-btn`));
-    STACK.setFocus('projects-icon');
+    STACK.setFocus('projects-window');
 })
 
 downloadsBtn.addEventListener('click',()=>{
     removeFocusIcon(document.querySelector(`#about-btn`));
     removeFocusIcon(document.querySelector(`#projects-btn`));
     focusIcon(document.querySelector(`#downloads-btn`));
-    STACK.setFocus('downloads-icon');
+    STACK.setFocus('downloads-window');
 })
 
 // REMOVING FOCUS
@@ -1027,6 +1028,26 @@ document.body.addEventListener('click',(event)=>{
     }
 })
 
+// SELECTING TEXT ON SCREEN
+document.addEventListener('selectionchange',()=>{
+    const selected = window.getSelection().toString();
+
+    if(selected.length > 0){
+        STACK.setTextFocus(selected);
+        
+    }
+
+
+})
+
+// Write text to clipboard
+function writeToClipboard(text){
+    navigator.clipboard.writeText(text).then(()=>{
+        console.log(`Copied: '${text}' to clipboard.`);
+    }).catch(error =>{
+        console.log(`Failed to copy: ${error}`);
+    })
+}
 
 
 // TOOLBAR FUNCTIONS
@@ -1034,38 +1055,40 @@ document.body.addEventListener('click', (event)=>{
     
     switch(event.target.id){
 
-        // OPEN FILE
+        
         case 'toolbar-link-0':
-            if(STACK.getFocus()){
-                if(STACK.getFocus() == 'about-icon' && STACK.getToolbarSection() == 'file'){
+
+            // OPEN FILE
+            if(STACK.getFocus() && STACK.getToolbarSection() == 'file'){
+                if(STACK.getFocus() == 'about-window'){
                     displayAbout();
                     return;
                 }
-                else if(STACK.getFocus() == 'projects-icon' && STACK.getToolbarSection() == 'file'){
+                else if(STACK.getFocus() == 'projects-window'){
                     displayProjects();
                     return;
                 }
-                else if(STACK.getFocus() == 'downloads-icon' && STACK.getToolbarSection() == 'file'){
+                else if(STACK.getFocus() == 'downloads-window'){
                     displayDownloads();
                     return;
                 }
-                else if(STACK.getFocus() == 'project0' && STACK.getToolbarSection() == 'file'){
+                else if(STACK.getFocus() == 'project0'){
                     displayProject(0);
                     return;
                 }
-                else if(STACK.getFocus() == 'project1' && STACK.getToolbarSection() == 'file'){
+                else if(STACK.getFocus() == 'project1'){
                     displayProject(1);
                     return;
                 }
-                else if(STACK.getFocus() == 'project2' && STACK.getToolbarSection() == 'file'){
+                else if(STACK.getFocus() == 'project2'){
                     displayProject(2);
                     return;
                 }
-                else if(STACK.getFocus() == 'project3' && STACK.getToolbarSection() == 'file'){
+                else if(STACK.getFocus() == 'project3'){
                     displayProject(3);
                     return;
                 }
-                else if(STACK.getFocus() == 'project4' && STACK.getToolbarSection() == 'file'){
+                else if(STACK.getFocus() == 'project4'){
                     displayProject(4);
                     return;
                 }
@@ -1078,18 +1101,20 @@ document.body.addEventListener('click', (event)=>{
             }
             break;
 
-        // GET INFO
-        case 'toolbar-link-2':
-            if(STACK.getFocus()){
-                if(STACK.getFocus() != null && STACK.getToolbarSection() == 'file'){
-                    displayInfo();
-                    return;
-                }
-            }
-            else{
-                return;
+        case 'toolbar-link-1':
+            // COPY SELECTED TEXT TO CLIPBOARD
+            if(STACK.getToolbarSection() == 'edit'){
+                writeToClipboard(STACK.getTextFocus());
+                STACK.setTextFocus(null)
             }
             break;
 
+        case 'toolbar-link-2':
+            // GET FILE INFO
+            if(STACK.getFocus() != null && STACK.getToolbarSection() == 'file'){
+                displayInfo();
+                break;
+            }
+        
     }
 })

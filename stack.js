@@ -1,8 +1,8 @@
 export class stack{
 
     #tabArray;
-    #size;
     #focus;
+    #textFocus;
     #toolbar_section;
    /*
         z-index
@@ -20,6 +20,7 @@ export class stack{
         this.#tabArray = new Array();
         this.#focus = null;
         this.#toolbar_section = null;
+        this.#textFocus = null;
     }
 
     checkOpen(tab){
@@ -162,7 +163,7 @@ export class stack{
     getFileInfo(){
         switch(this.#focus){
             // about window
-            case 'about-icon':
+            case 'about-window':
                 return [
                     'About me',
                     'TeachText Document',
@@ -172,7 +173,7 @@ export class stack{
                     Date.now(),
                     'images/document.png'
                 ];
-            case 'projects-icon':
+            case 'projects-window':
                 return [
                     'Projects',
                     'folder',
@@ -182,7 +183,7 @@ export class stack{
                     Date.now(),
                     'images/processor.png'
                 ];
-            case 'downloads-icon':
+            case 'downloads-window':
                 return [
                     'Downloads',
                     'folder',
@@ -243,5 +244,14 @@ export class stack{
                     'images/processor.png'
                 ];
         }
+    }
+
+    setTextFocus(text){
+        this.#textFocus = text;
+    }
+
+    getTextFocus(){
+
+        return this.#textFocus;
     }
 }

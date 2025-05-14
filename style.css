@@ -472,6 +472,7 @@ PROJECT
     -webkit-box-shadow: 2px 2px 1px 2px #000000; 
     box-shadow: 2px 2px 1px 2px #000000;
     cursor: default;
+    z-index: 9000;
 }
 
 .dropdown-menu p{

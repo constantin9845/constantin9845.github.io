@@ -46,6 +46,7 @@
 
 ## To do
 
+- Edit section toolbar - copy done
 - add downloads links
 - low fps effects
 - add startup effect
