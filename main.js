@@ -1062,39 +1062,32 @@ document.body.addEventListener('click', (event)=>{
             if(STACK.getFocus() && STACK.getToolbarSection() == 'file'){
                 if(STACK.getFocus() == 'about-window'){
                     displayAbout();
-                    return;
                 }
                 else if(STACK.getFocus() == 'projects-window'){
                     displayProjects();
-                    return;
                 }
                 else if(STACK.getFocus() == 'downloads-window'){
                     displayDownloads();
-                    return;
                 }
                 else if(STACK.getFocus() == 'project0'){
                     displayProject(0);
-                    return;
                 }
                 else if(STACK.getFocus() == 'project1'){
                     displayProject(1);
-                    return;
                 }
                 else if(STACK.getFocus() == 'project2'){
                     displayProject(2);
-                    return;
                 }
                 else if(STACK.getFocus() == 'project3'){
                     displayProject(3);
-                    return;
                 }
                 else if(STACK.getFocus() == 'project4'){
                     displayProject(4);
-                    return;
                 }
                 else{
                     alert(STACK.getFocus());
                 }
+                closeDropdown(1);
             }
             else{
                 return;
@@ -1105,7 +1098,8 @@ document.body.addEventListener('click', (event)=>{
             // COPY SELECTED TEXT TO CLIPBOARD
             if(STACK.getToolbarSection() == 'edit'){
                 writeToClipboard(STACK.getTextFocus());
-                STACK.setTextFocus(null)
+                STACK.setTextFocus(null);
+                closeDropdown(2)
             }
             break;
 
@@ -1113,6 +1107,7 @@ document.body.addEventListener('click', (event)=>{
             // GET FILE INFO
             if(STACK.getFocus() != null && STACK.getToolbarSection() == 'file'){
                 displayInfo();
+                closeDropdown(1);
                 break;
             }
         
