@@ -46,8 +46,15 @@
 
 ## To do
 
-- Edit section toolbar - copy done
-- add downloads links
+- Editor:
+-- when saving : enter name
+-- Header name changes from  untitled
+-- file section of toolbar --> needs save, save as / (quit?)
+-- Need shortcut w/ name TeachText
+
 - low fps effects
-- add startup effect
+- Add Text file editor
+- Edit section toolbar - Paste
 - mobile version
+
+- add downloads links

@@ -9,6 +9,130 @@ const UI_CONTENT = document.getElementById('ui-content');
 
 var VIEW_STYLE = 0;
 
+function bootAnimation(){
+
+    const darkScreen = document.createElement('style');
+    darkScreen.textContent = `
+        .screen-content::after{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 99999;
+        } 
+    `;
+
+    const emptyWhite = document.createElement('style');
+    emptyWhite.textContent = `
+        .screen-content::after{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            content: url('images/empty.png');
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 99999;
+        }
+    `
+
+
+    const firstLoader = document.createElement('style');
+    firstLoader.textContent =  `
+        .screen-content::after{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            content: url('images/empty_load.png');
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 99999;
+        }
+    `;
+
+    const companyInfoLoader = document.createElement('style');
+    companyInfoLoader.textContent = `
+        .screen-content::after{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            content: url('images/company.png');
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 99999;
+        }
+    `
+
+    document.querySelector('#apple-btn').style.opacity = '0';
+    document.querySelector('#file-btn').style.opacity = '0';
+    document.querySelector('#edit-btn').style.opacity = '0';
+    document.querySelector('#view-btn').style.opacity = '0';
+    document.querySelector('#special-btn').style.opacity = '0';
+    document.querySelector('#about-btn').style.opacity = '0';
+    document.querySelector('#projects-btn').style.opacity = '0';
+    document.querySelector('#downloads-btn').style.opacity = '0';
+
+
+    document.head.appendChild(darkScreen);
+
+    setTimeout(()=>{
+        document.head.removeChild(darkScreen);
+        document.head.appendChild(emptyWhite);
+    }, 1500);
+
+    setTimeout(()=>{
+        document.head.removeChild(emptyWhite);
+        document.head.appendChild(firstLoader);
+    }, 2500);
+
+
+    setTimeout(()=>{
+        document.head.removeChild(firstLoader);
+        document.head.appendChild(emptyWhite);
+    }, 4000);
+
+    setTimeout(()=>{
+        document.head.removeChild(emptyWhite);
+        document.head.appendChild(companyInfoLoader);
+    }, 5000);
+
+    setTimeout(()=>{
+        document.head.removeChild(companyInfoLoader);
+        document.querySelector('#apple-btn').style.opacity = '1';
+        document.querySelector('#file-btn').style.opacity = '1';
+        document.querySelector('#edit-btn').style.opacity = '1';
+        document.querySelector('#view-btn').style.opacity = '1';
+        document.querySelector('#special-btn').style.opacity = '1';  
+    }, 10000);
+
+    setTimeout(()=>{
+        document.querySelector('#about-btn').style.opacity = '1';
+        document.querySelector('#projects-btn').style.opacity = '1';
+        document.querySelector('#downloads-btn').style.opacity = '1';
+    }, 11000)
+                                        
+
+}
+
+//bootAnimation()
+
 
 // ABOUT TAB
 aboutBtn.addEventListener('dblclick', ()=>{
@@ -334,11 +458,14 @@ function createDownloads(){
     downloadsContent.classList.add('downloads-content');
 
     const description = document.createElement('p');
-    description.textContent = 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.';
+    description.textContent = 'Download links of tools I created. Check out the descriptions in the projects section. The source code is available on Github.';
 
     const links = document.createElement('ul');
     let link = document.createElement('li');
-    link.textContent = 'Mac';
+    link.textContent = 'Random Comment Picker (Windows)';
+    link.addEventListener('click',()=>{
+        window.open('https://github.com/constantin9845/random-comments/releases/download/0.1v/WinCom.exe', "_blank")
+    })
     links.appendChild(link);
 
     link = document.createElement('li');
@@ -1113,3 +1240,47 @@ document.body.addEventListener('click', (event)=>{
         
     }
 })
+
+
+
+// TEXT EDITOR
+function displayEditor(){
+    if(STACK.checkOpen('editor-window')==-1){
+        const editorWindow = createEditor();
+
+        UI_CONTENT.appendChild(editorWindow);
+
+        dragWindow(editorWindow);
+
+        STACK.openTab('editor-window');
+    }
+    else{
+        STACK.moveFront('editor-window');
+    }
+}
+
+function createEditor(){
+    const editorWindow = document.createElement('div');
+    editorWindow.classList.add('editor-window');
+
+    const editorWindowToolbar = document.createElement('div');
+    const closeBtnContainer = document.createElement('div');
+    closeBtnContainer.classList.add('close-btn-container')
+    const closeBtn = document.createElement('div');
+    closeBtn.classList.add('close-btn');
+    closeBtn.classList.add('-editor-window');
+    closeBtn.classList.add('close-editor-btn');
+    closeBtnContainer.appendChild(closeBtn)
+    const titleContainer = document.createElement('div');
+    titleContainer.classList.add('title-container');
+    const title = document.createElement('p');
+    titleContainer.appendChild(title);
+    title.textContent = 'Untitled';
+
+    editorWindowToolbar.classList.add('editor-toolbar');
+    editorWindowToolbar.classList.add('drag-toolbar');
+    editorWindowToolbar.appendChild(closeBtnContainer);
+    editorWindowToolbar.appendChild(titleContainer);
+
+    
+}
