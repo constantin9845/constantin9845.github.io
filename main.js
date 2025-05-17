@@ -131,7 +131,7 @@ function bootAnimation(){
 
 }
 
-//bootAnimation()
+bootAnimation()
 
 
 // ABOUT TAB
@@ -1282,5 +1282,5 @@ function createEditor(){
     editorWindowToolbar.appendChild(closeBtnContainer);
     editorWindowToolbar.appendChild(titleContainer);
 
-    
+
 }
