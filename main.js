@@ -4,6 +4,7 @@ const STACK = new stack();
 const aboutBtn = document.getElementById('about-btn');
 const projectsBtn = document.getElementById('projects-btn');
 const downloadsBtn = document.getElementById('downloads-btn');
+const editorBtn = document.getElementById('editor-btn');
 
 const UI_CONTENT = document.getElementById('ui-content');
 
@@ -88,6 +89,7 @@ function bootAnimation(){
     document.querySelector('#about-btn').style.opacity = '0';
     document.querySelector('#projects-btn').style.opacity = '0';
     document.querySelector('#downloads-btn').style.opacity = '0';
+    document.querySelector('#editor-btn').style.opacity = '0';
 
 
     document.head.appendChild(darkScreen);
@@ -126,6 +128,7 @@ function bootAnimation(){
         document.querySelector('#about-btn').style.opacity = '1';
         document.querySelector('#projects-btn').style.opacity = '1';
         document.querySelector('#downloads-btn').style.opacity = '1';
+        document.querySelector('#editor-btn').style.opacity = '1';
     }, 11000)
                                         
 
@@ -755,7 +758,7 @@ function createDropDown(type){
             titles = ['About The Finder...','Scrapbook','Alarm Clock','Control Panel','Puzzle'];
             break;
         case 1:
-            titles = ['Open','Dublicate','Get Info'];
+            titles = ['Open','Dublicate','Get Info','Save'];
             break;
         case 2:
             titles = ['Cut','Copy','Paste','Select All'];
@@ -881,6 +884,7 @@ function getAvailableFunctions(type){
             else if(STACK.getFocus() == 'about-window' || 
                 STACK.getFocus() == 'projects-window' || 
                 STACK.getFocus() == 'downloads-window' ||
+                STACK.getFocus() == 'editor-window' ||
                 STACK.getFocus() == 'project0' ||
                 STACK.getFocus() == 'project1' ||
                 STACK.getFocus() == 'project2' ||
@@ -1055,13 +1059,16 @@ function focusIcon(element){
 
     switch(element.id){
         case 'about-btn':
-            img.src = 'images/document-focus.png';
+            img.src = 'images/me-focus.png';
             break;
         case 'projects-btn':
             img.src = 'images/processor-focus.png'
             break;
         case 'downloads-btn':
             img.src = 'images/floppy-disk-focus.png'
+            break;
+        case 'editor-btn':
+            img.src = 'images/document-focus.png'
             break;
     }
 }
@@ -1105,7 +1112,7 @@ function removeFocusIcon(element){
 
     switch(element.id){
         case 'about-btn':
-            img.src = 'images/document.png';
+            img.src = 'images/me.png';
             break;
         case 'projects-btn':
             img.src = 'images/processor.png'
@@ -1113,44 +1120,63 @@ function removeFocusIcon(element){
         case 'downloads-btn':
             img.src = 'images/floppy-disk.png'
             break;
+        case 'editor-btn':
+            img.src = 'images/document.png'
+            break;
     }
 
     STACK.setFocus(null);
 }
 
 function removeFocusAllIcons(){
-    removeFocusIcon(document.querySelector(`#about-btn`));
-    removeFocusIcon(document.querySelector(`#projects-btn`));
-    removeFocusIcon(document.querySelector(`#downloads-btn`));
+    removeFocusIcon(aboutBtn);
+    removeFocusIcon(projectsBtn);
+    removeFocusIcon(downloadsBtn);
+    removeFocusIcon(editorBtn);
 
     STACK.setFocus(null);
 }
 
 aboutBtn.addEventListener('click',()=>{
-    removeFocusIcon(document.querySelector(`#projects-btn`));
-    removeFocusIcon(document.querySelector(`#downloads-btn`));
-    focusIcon(document.querySelector(`#about-btn`));
+    removeFocusIcon(projectsBtn);
+    removeFocusIcon(downloadsBtn);
+    removeFocusIcon(editorBtn);
+
+    focusIcon(aboutBtn);
     STACK.setFocus('about-window');
 });
 
 projectsBtn.addEventListener('click',()=>{
-    removeFocusIcon(document.querySelector(`#about-btn`));
-    removeFocusIcon(document.querySelector(`#downloads-btn`));
-    focusIcon(document.querySelector(`#projects-btn`));
+    removeFocusIcon(aboutBtn);
+    removeFocusIcon(downloadsBtn);
+    removeFocusIcon(editorBtn)
+
+    focusIcon(projectsBtn);
     STACK.setFocus('projects-window');
 })
 
 downloadsBtn.addEventListener('click',()=>{
-    removeFocusIcon(document.querySelector(`#about-btn`));
-    removeFocusIcon(document.querySelector(`#projects-btn`));
-    focusIcon(document.querySelector(`#downloads-btn`));
+    removeFocusIcon(aboutBtn);
+    removeFocusIcon(projectsBtn);
+    removeFocusIcon(editorBtn);
+
+    focusIcon(downloadsBtn);
     STACK.setFocus('downloads-window');
+})
+
+editorBtn.addEventListener('click',()=>{
+    removeFocusIcon(aboutBtn);
+    removeFocusIcon(projectsBtn);
+    removeFocusIcon(downloadsBtn);
+
+    focusIcon(editorBtn);
+    STACK.setFocus('editor-window');
 })
 
 // REMOVING FOCUS
 document.body.addEventListener('click',(event)=>{
     let temp = event.target.className;
-    if(temp == 'shortcuts' || temp == 'credits' || temp == 'about-window' || temp == 'projects-window' || temp == 'downloads-window'){
+    if(temp == 'shortcuts' || temp == 'credits' || temp == 'about-window' || temp == 'projects-window' || temp == 'downloads-window' || temp == 'editor-window'){
         removeFocusAllIcons();
     }
 })
@@ -1196,6 +1222,9 @@ document.body.addEventListener('click', (event)=>{
                 else if(STACK.getFocus() == 'downloads-window'){
                     displayDownloads();
                 }
+                else if(STACK.getFocus() == 'editor-window'){
+                    displayEditor();
+                }
                 else if(STACK.getFocus() == 'project0'){
                     displayProject(0);
                 }
@@ -1237,7 +1266,19 @@ document.body.addEventListener('click', (event)=>{
                 closeDropdown(1);
                 break;
             }
-        
+        case 'tool-bar-link-3':
+            // saving text file
+            if(STACK.getToolbarSection() == 'file' && STACK.checkOpen('editor-window')){
+                const fileData = []
+                fileData.append(getTitle());
+                fileData.append(document.querySelector('.editor-input-window').innerHTML);
+
+                createShortcut(fileData[0]);
+
+                destroyWindow('editor-window');
+                createFile(fileData);
+            }
+            break;
     }
 })
 
@@ -1282,5 +1323,34 @@ function createEditor(){
     editorWindowToolbar.appendChild(closeBtnContainer);
     editorWindowToolbar.appendChild(titleContainer);
 
+    const inputArea = document.createElement('textarea');
+    inputArea.classList.add('editor-input-window')
+
+
+    editorWindow.appendChild(editorWindowToolbar);
+    editorWindow.appendChild(inputArea);
+
+    return editorWindow;
+}
+
+editorBtn.addEventListener('dblclick', ()=>{
+    displayEditor();
+});
+
+// NEW FILE
+function createFile(fileData){
 
 }
+
+function getTitle(){
+
+}
+
+function createShortcut(title){
+
+}
+
+function displayFile(fileData){
+    const file = createFile(fileData);
+}
+

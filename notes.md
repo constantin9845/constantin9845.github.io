@@ -47,7 +47,9 @@
 ## To do
 
 - Editor:
--- when saving : enter name
+-- when saving file : enter name (check for duplicate in stack)
+-- setup file creation
+-- Editor should add hidden line breaks
 -- Header name changes from  untitled
 -- file section of toolbar --> needs save, save as / (quit?)
 -- Need shortcut w/ name TeachText

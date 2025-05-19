@@ -193,6 +193,16 @@ export class stack{
                     Date.now(),
                     'images/floppy-disk.png'
                 ];
+            case 'editor-window':
+                return [
+                    'TeachText',
+                    'Application',
+                    '233002576 Bytes, accounts for 234MB on disk',
+                    `System Disk, ${navigator.platform}`,
+                    Date.now(),
+                    Date.now(),
+                    'images/document.png'
+            ];
             case 'project0':
                 return [
                     'File-lock Desktop',

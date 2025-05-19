@@ -572,9 +572,46 @@ PROJECT
     width: 75%;
 }
 
+/* Editor Window */
+.editor-window{   
+    width: 95%;
+    height: 95%;
+    background-color: white;
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+
+    -webkit-box-shadow: 2px 2px 1px 2px #000000; 
+    box-shadow: 2px 2px 1px 2px #000000;
+}
+
+.editor-toolbar{
+    height: 4%;
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editor-input-window{
+    height: 100%;
+    font-size: 16px;
+    resize: none;
+    padding: 2%;
+}
+
+
+.editor-input-window:focus{
+    outline: none;
+}
+
 
 @media only screen and (max-width: 880px) {
     .container{
         display: none;
     }
-  }
+}
