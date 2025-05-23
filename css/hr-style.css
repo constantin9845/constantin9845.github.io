@@ -1,0 +1,706 @@
+.hr-container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.menu{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-folders{
+    width: 100%;
+    height: 65%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.folder{
+    width: 200px;
+    height: 120px;
+    background-color: #f3c674; 
+    border: 2px solid #b58d3b;
+    border-radius: 6px;
+    position: absolute;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all ease-in-out 0.3s;
+    cursor: pointer;
+}
+
+.folder.hide{
+    transform: translateX(0px);
+}
+
+.folder.show{
+    transform: translateX(50px);
+}
+
+.folder:hover{
+    transform: translateX(50px);
+}
+
+#home-folder{
+    top: 25%;
+}
+
+#about-folder{
+    top: 32%;
+}
+
+#projects-folder{
+    top: 39%;
+}
+
+#downloads-folder{
+    top: 46%;
+}
+
+.tab{
+    width: 100px;
+    height: 20px;
+    background-color: #f3c674;
+    border: 2px solid #b58d3b;
+    border-bottom: none;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    position: absolute;
+    top: -23px;
+    right: 0;
+    text-align: center;
+    line-height: 25px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+
+.menu-button-container{
+    width: 100%;
+    height: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-toggle-btn{
+    border: 0.1px solid black;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hr-content{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-display{
+    height: 80%;
+    width: 80%;
+    border-radius: 10px;
+    border: 0.1px solid black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media only screen and (max-width: 1100px) {
+    .menu{
+        width: 25%;
+    }
+
+    .folder{
+        width: 150px;
+        height: 100px;
+    }
+
+    .hr-content{
+        width: 75%;
+    }
+
+    .content-display{
+        width: 90%;
+    }
+}
+
+
+@media only screen and (max-width: 1000px) {
+    .menu{
+        width: 20%;
+    }
+
+    .folder{
+        width: 150px;
+        height: 100px;
+    }
+
+    .hr-content{
+        width: 80%;
+    }
+
+    .content-display{
+        width: 95%;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+
+    .hr-container{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .menu{
+        width: 100%;
+        height: 30%;
+        order: 2;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .menu-folders{
+        width: 100%;
+        height: 40%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        position: relative;
+    }
+
+    .folder{
+        width: 150px;
+        height: 90px;
+    }
+
+    .folder.hide{
+        transform: translateY(0px);
+    }
+
+    .folder.show{
+        transform: translateY(-50px);
+    }
+
+    .folder:hover{
+        transform: translateY(-50px);
+    }
+
+    #home-folder{
+        top: 0;
+        left: 20%;
+    }
+
+    #about-folder{
+        top: 0;
+        left: 32%;
+    }
+
+    #projects-folder{
+        top: 0;
+        left: 44%;
+    }
+
+    #downloads-folder{
+        top: 0;
+        left: 56%;
+    }
+
+    .tab{
+        width: 100px;
+        height: 20px;
+        background-color: #f3c674;
+        border: 2px solid #b58d3b;
+        border-bottom: none;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        position: absolute;
+        top: -23px;
+        right: 0;
+        text-align: center;
+        line-height: 25px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .hr-content{
+        width: 100%;
+        height: 70%;
+        order: 1;
+    }
+
+    .content-display{
+        width: 95%;
+        height: 90%;
+    }
+
+    .menu-button-container{
+        width: 100%;
+        height: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menu-toggle-btn{
+        width: 100px;
+        height: 100px;
+    }
+
+}
+
+@media only screen and (max-width: 660px) {
+
+    .hr-container{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .menu{
+        width: 100%;
+        height: 25%;
+        order: 2;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .menu-folders{
+        width: 100%;
+        height: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        position: relative;
+    }
+
+    .folder{
+        width: 150px;
+        height: 75px;
+    }
+
+    .folder.hide{
+        transform: translateY(0px);
+    }
+
+    .folder.show{
+        transform: translateY(-50px);
+    }
+
+    .folder:hover{
+        transform: translateY(-50px);
+    }
+
+    #home-folder{
+        top: 0;
+        left: 15%;
+    }
+
+    #about-folder{
+        top: 0;
+        left: 30%;
+    }
+
+    #projects-folder{
+        top: 0;
+        left: 45%;
+    }
+
+    #downloads-folder{
+        top: 0;
+        left: 60%;
+    }
+
+    .tab{
+        width: 100px;
+        height: 20px;
+        background-color: #f3c674;
+        border: 2px solid #b58d3b;
+        border-bottom: none;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        position: absolute;
+        top: -23px;
+        right: 0;
+        text-align: center;
+        line-height: 25px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .hr-content{
+        width: 100%;
+        height: 80%;
+        order: 1;
+    }
+
+    .content-display{
+        width: 95%;
+        height: 90%;
+    }
+
+    .menu-button-container{
+        width: 100%;
+        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menu-toggle-btn{
+        width: 75px;
+        height: 75px;
+    }
+
+}
+
+@media only screen and (max-width: 580px) {
+
+    .hr-container{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .menu{
+        width: 100%;
+        height: 25%;
+        order: 2;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .menu-folders{
+        width: 100%;
+        height: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        position: relative;
+    }
+
+    .folder{
+        width: 150px;
+        height: 75px;
+    }
+
+    .folder.hide{
+        transform: translateY(0px);
+    }
+
+    .folder.show{
+        transform: translateY(-50px);
+    }
+
+    .folder:hover{
+        transform: translateY(-50px);
+    }
+
+    #home-folder{
+        top: 0;
+        left: 9%;
+    }
+
+    #about-folder{
+        top: 0;
+        left: 25%;
+    }
+
+    #projects-folder{
+        top: 0;
+        left: 41%;
+    }
+
+    #downloads-folder{
+        top: 0;
+        left: 58%;
+    }
+
+    .tab{
+        width: 100px;
+        height: 20px;
+        background-color: #f3c674;
+        border: 2px solid #b58d3b;
+        border-bottom: none;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        position: absolute;
+        top: -23px;
+        right: 0;
+        text-align: center;
+        line-height: 25px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .hr-content{
+        width: 100%;
+        height: 80%;
+        order: 1;
+    }
+
+    .content-display{
+        width: 95%;
+        height: 90%;
+    }
+
+    .menu-button-container{
+        width: 100%;
+        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menu-toggle-btn{
+        width: 75px;
+        height: 75px;
+    }
+
+}
+
+@media only screen and (max-width: 580px) {
+
+    .hr-container{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .menu{
+        width: 100%;
+        height: 25%;
+        order: 2;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .menu-folders{
+        width: 100%;
+        height: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        position: relative;
+    }
+
+    .folder{
+        width: 150px;
+        height: 75px;
+    }
+
+    .folder.hide{
+        transform: translateY(0px);
+    }
+
+    .folder.show{
+        transform: translateY(-50px);
+    }
+
+    .folder:hover{
+        transform: translateY(-50px);
+    }
+
+    #home-folder{
+        top: 0;
+        left: 6%;
+    }
+
+    #about-folder{
+        top: 0;
+        left: 25%;
+    }
+
+    #projects-folder{
+        top: 0;
+        left: 44%;
+    }
+
+    #downloads-folder{
+        top: 0;
+        left: 63%;
+    }
+
+    .tab{
+        width: 100px;
+        height: 20px;
+        background-color: #f3c674;
+        border: 2px solid #b58d3b;
+        border-bottom: none;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        position: absolute;
+        top: -23px;
+        right: 0;
+        text-align: center;
+        line-height: 25px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .hr-content{
+        width: 100%;
+        height: 80%;
+        order: 1;
+    }
+
+    .content-display{
+        width: 95%;
+        height: 90%;
+    }
+
+    .menu-button-container{
+        width: 100%;
+        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menu-toggle-btn{
+        width: 75px;
+        height: 75px;
+    }
+
+}
+
+@media only screen and (max-width: 460px) {
+
+    .hr-container{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .menu{
+        width: 100%;
+        height: 25%;
+        order: 2;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .menu-folders{
+        width: 100%;
+        height: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        position: relative;
+    }
+
+    .folder{
+        width: 150px;
+        height: 75px;
+    }
+
+    .folder.hide{
+        transform: translateY(0px);
+    }
+
+    .folder.show{
+        transform: translateY(-50px);
+    }
+
+    .folder:hover{
+        transform: translateY(-50px);
+    }
+
+    #home-folder{
+        top: 0;
+        left: 1%;
+    }
+
+    #about-folder{
+        top: 0;
+        left: 22%;
+    }
+
+    #projects-folder{
+        top: 0;
+        left: 43%;
+    }
+
+    #downloads-folder{
+        top: 0;
+        left: 65%;
+    }
+
+    .tab{
+        width: 100px;
+        height: 20px;
+        background-color: #f3c674;
+        border: 2px solid #b58d3b;
+        border-bottom: none;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        position: absolute;
+        top: -23px;
+        right: 0;
+        text-align: center;
+        line-height: 25px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .hr-content{
+        width: 100%;
+        height: 80%;
+        order: 1;
+    }
+
+    .content-display{
+        width: 95%;
+        height: 90%;
+    }
+
+    .menu-button-container{
+        width: 100%;
+        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menu-toggle-btn{
+        width: 75px;
+        height: 75px;
+    }
+
+}
+

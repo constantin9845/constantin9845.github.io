@@ -4,7 +4,7 @@ const STACK = new stack();
 const aboutBtn = document.getElementById('about-btn');
 const projectsBtn = document.getElementById('projects-btn');
 const downloadsBtn = document.getElementById('downloads-btn');
-const editorBtn = document.getElementById('editor-btn');
+//const editorBtn = document.getElementById('editor-btn');
 
 const UI_CONTENT = document.getElementById('ui-content');
 
@@ -89,7 +89,7 @@ function bootAnimation(){
     document.querySelector('#about-btn').style.opacity = '0';
     document.querySelector('#projects-btn').style.opacity = '0';
     document.querySelector('#downloads-btn').style.opacity = '0';
-    document.querySelector('#editor-btn').style.opacity = '0';
+    //document.querySelector('#editor-btn').style.opacity = '0';
 
 
     document.head.appendChild(darkScreen);
@@ -128,7 +128,7 @@ function bootAnimation(){
         document.querySelector('#about-btn').style.opacity = '1';
         document.querySelector('#projects-btn').style.opacity = '1';
         document.querySelector('#downloads-btn').style.opacity = '1';
-        document.querySelector('#editor-btn').style.opacity = '1';
+        //document.querySelector('#editor-btn').style.opacity = '1';
     }, 11000)
                                         
 
@@ -1132,7 +1132,7 @@ function removeFocusAllIcons(){
     removeFocusIcon(aboutBtn);
     removeFocusIcon(projectsBtn);
     removeFocusIcon(downloadsBtn);
-    removeFocusIcon(editorBtn);
+    //removeFocusIcon(editorBtn);
 
     STACK.setFocus(null);
 }
@@ -1140,7 +1140,7 @@ function removeFocusAllIcons(){
 aboutBtn.addEventListener('click',()=>{
     removeFocusIcon(projectsBtn);
     removeFocusIcon(downloadsBtn);
-    removeFocusIcon(editorBtn);
+    //removeFocusIcon(editorBtn);
 
     focusIcon(aboutBtn);
     STACK.setFocus('about-window');
@@ -1149,7 +1149,7 @@ aboutBtn.addEventListener('click',()=>{
 projectsBtn.addEventListener('click',()=>{
     removeFocusIcon(aboutBtn);
     removeFocusIcon(downloadsBtn);
-    removeFocusIcon(editorBtn)
+    //removeFocusIcon(editorBtn)
 
     focusIcon(projectsBtn);
     STACK.setFocus('projects-window');
@@ -1158,12 +1158,13 @@ projectsBtn.addEventListener('click',()=>{
 downloadsBtn.addEventListener('click',()=>{
     removeFocusIcon(aboutBtn);
     removeFocusIcon(projectsBtn);
-    removeFocusIcon(editorBtn);
+    //removeFocusIcon(editorBtn);
 
     focusIcon(downloadsBtn);
     STACK.setFocus('downloads-window');
 })
 
+/*
 editorBtn.addEventListener('click',()=>{
     removeFocusIcon(aboutBtn);
     removeFocusIcon(projectsBtn);
@@ -1172,6 +1173,7 @@ editorBtn.addEventListener('click',()=>{
     focusIcon(editorBtn);
     STACK.setFocus('editor-window');
 })
+*/
 
 // REMOVING FOCUS
 document.body.addEventListener('click',(event)=>{
@@ -1222,9 +1224,11 @@ document.body.addEventListener('click', (event)=>{
                 else if(STACK.getFocus() == 'downloads-window'){
                     displayDownloads();
                 }
+                /*
                 else if(STACK.getFocus() == 'editor-window'){
                     displayEditor();
                 }
+                    */
                 else if(STACK.getFocus() == 'project0'){
                     displayProject(0);
                 }
@@ -1268,6 +1272,7 @@ document.body.addEventListener('click', (event)=>{
             }
         case 'tool-bar-link-3':
             // saving text file
+            /*
             if(STACK.getToolbarSection() == 'file' && STACK.checkOpen('editor-window')){
                 const fileData = []
                 fileData.append(getTitle());
@@ -1279,12 +1284,14 @@ document.body.addEventListener('click', (event)=>{
                 createFile(fileData);
             }
             break;
+            */
     }
 })
 
 
 
 // TEXT EDITOR
+/*
 function displayEditor(){
     if(STACK.checkOpen('editor-window')==-1){
         const editorWindow = createEditor();
@@ -1354,3 +1361,4 @@ function displayFile(fileData){
     const file = createFile(fileData);
 }
 
+*/
