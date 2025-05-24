@@ -1,6 +1,6 @@
 .hr-container{
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     display: flex;
     flex-direction: row;
 }
@@ -202,7 +202,7 @@
     }
 
     .folder:hover{
-        transform: translateY(-50px);
+        transform: none;
     }
 
     #home-folder{
@@ -311,7 +311,7 @@
     }
 
     .folder:hover{
-        transform: translateY(-50px);
+        transform: none;
     }
 
     #home-folder{
@@ -420,7 +420,7 @@
     }
 
     .folder:hover{
-        transform: translateY(-50px);
+        transform: none;
     }
 
     #home-folder{
@@ -529,7 +529,7 @@
     }
 
     .folder:hover{
-        transform: translateY(-50px);
+        transform: none;
     }
 
     #home-folder{
@@ -638,7 +638,7 @@
     }
 
     .folder:hover{
-        transform: translateY(-50px);
+        transform: none;
     }
 
     #home-folder{
