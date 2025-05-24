@@ -98,6 +98,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .hr-content{
@@ -119,7 +120,121 @@
     align-items: center;
 }
 
+.hr-display-content{
+    display: none;
+}
 
+/* HOME CONTENT */
+
+/* ABOUT CONTENT */
+.hr-display-content:nth-child(2){
+    display: flex;
+}
+
+.about-content{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.about-row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.about-row1{
+    height: 50%;
+}
+
+.about-row2{
+    height: 50%;
+}
+
+.description{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2%;
+}
+
+.profile-image{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-image img{
+    width: 60%;
+    height: auto;
+}
+
+.skills{
+    width: 50%;
+    padding: 2%;
+}
+
+.skills table{
+    width: 90%;
+}
+
+.skills table th{
+    text-align: left;
+}
+
+.skills table tr td{
+    border: 1px solid rgb(166, 166, 166);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.skills table tr td p{
+    margin: 5%;
+}
+
+.skills table tr td:hover{
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.interests{
+    width: 50%;
+    padding: 2%;
+}
+
+.interests table{
+    width: 90%;
+}
+
+.interests table th{
+    text-align: left;
+}
+
+.interests table tr td{
+    border: 1px solid rgb(166, 166, 166);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.interests table tr td:hover{
+    border: 1px solid black;
+}
+
+.interests table tr td p{
+    margin: 5%;
+}
+
+
+/* PROJECTS CONTENT */
+
+/* DOWNLOADS CONTENT */
+
+
+
+/* MAIN SCREEN and MENU */
 @media only screen and (max-width: 1100px) {
     .menu{
         width: 25%;
@@ -584,3 +699,121 @@
 
 }
 
+
+/* ABOUT PAGE */
+@media only screen and (max-width: 660px){
+
+    .about-content{
+        overflow-y: scroll;
+    }
+
+    .about-row{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .about-row1{
+        height: unset;
+    }
+
+    .about-row2{
+        height: unset;
+    }
+
+    .description{
+        width: 100%;
+        margin-top: 10%;
+        order: 2;
+        padding: unset;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10%;
+    }
+
+    .description h3{
+        width: 95%;
+        text-align: left;
+    }
+
+    .description p {
+        width: 95%;
+        padding: 0;
+    }
+
+    .profile-image{
+        width: 100%;
+        margin-top: 5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        order: 1;
+    }
+
+    .profile-image img{
+        width: 35%;
+        height: auto;
+    }
+
+    .skills{
+        width: 100%;
+        margin-bottom: 10%;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .skills table{
+        width: 95%;
+    }
+
+    .skills table th{
+        text-align: left;
+    }
+
+    .skills table tr td{
+        border: 1px solid rgb(166, 166, 166);
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .skills table tr td p{
+        margin: 5%;
+    }
+
+    .skills table tr td:hover{
+        border: 1px solid rgb(0, 0, 0);
+    }
+
+    .interests{
+        margin-bottom: 10%;
+        width: 100%;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .interests table{
+        width: 95%;
+    }
+
+    .interests table th{
+        text-align: left;
+    }
+
+    .interests table tr td{
+        border: 1px solid rgb(166, 166, 166);
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .interests table tr td:hover{
+        border: 1px solid black;
+    }
+
+    .interests table tr td p{
+        margin: 5%;
+    }
+}

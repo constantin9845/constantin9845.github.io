@@ -46,8 +46,7 @@
 
 ## To do
 
-- Mobile: Shorten height, folders only go back with toggle (not with direct press).
-- Toggle option only visible when cookie already set --> add toggle button text when new cookie set up for first time.
+- HR Mode: add content + tab swithing
 
 - Editor:
 -- when saving file : enter name (check for duplicate in stack)
