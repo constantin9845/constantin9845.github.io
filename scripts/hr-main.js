@@ -5,7 +5,10 @@ const appleContainer = document.querySelector('.container');
 const hrContainer = document.querySelector('.hr-container');
 
 
+const width = window.innerWidth;
+
 // COOKIES - MODE
+
 function getCookie(){
     const cookies = document.cookie.split(',');
     let mode = 'mode' + '=';
@@ -49,32 +52,36 @@ function setCookie(value){
 
 function updateUI(){
     if(getCookie() == 'hr'){
-        appleContainer.style.display = 'none'
+        appleContainer.style.display = 'none';
         hrContainer.style.display = 'flex';
+        toggleText.textContent = 'Apple Mode';
     }
     else{
         appleContainer.style.display = 'flex'
         hrContainer.style.display = 'none';
+        toggleText.textContent = 'HR Mode';
     }
 }
 
-setCookieIfNone();
-updateUI();
+
+if(width > 880){
+    setCookieIfNone();
+    updateUI();
+}
 
 
 toggleBtn.addEventListener('click',()=>{
-    
+
     if(getCookie('mode') == 'apple'){
         setCookie('hr')
-        toggleText.textContent = 'Apple Mode'
     }
     else{
         setCookie('apple');
-        toggleText.textContent = 'HR Mode'
     }
     
     updateUI();
 })
+
 
 
 // MENU TOGGLE
