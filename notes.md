@@ -46,7 +46,9 @@
 
 ## To do
 
-- HR Mode: add content + tab swithing
+- HR Mode: add HOME and DOWNLOADS CONTENT
+- HR Mode: minor styling issues on phone screens with Projects page
+- On small screens --> fix folders overlapping screen.
 
 - Editor:
 -- when saving file : enter name (check for duplicate in stack)
