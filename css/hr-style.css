@@ -709,7 +709,7 @@
 
     .folder{
         width: 30%;
-        height: 75px;
+        height: 50px;
     }
 
     .folder.hide{
@@ -717,7 +717,7 @@
     }
 
     .folder.show{
-        transform: translateY(-50px);
+        transform: translateY(-25px);
     }
 
     #home-folder{
@@ -829,7 +829,7 @@
 
     .profile-image{
         width: 100%;
-        margin-top: 5%;
+        margin-top: 10%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1017,6 +1017,8 @@
         justify-content: space-evenly;
         align-items: center;
         background-color: #ffe6b8;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 
     .hr-project-btn{
