@@ -69,23 +69,38 @@
     </div>
     <div class="hr-container">
         <div class="menu">
-            <div class="menu-folders">
-                <div class="folder" id="home-folder">
-                    <div class="tab">Home</div>
-                </div>
-                <div class="folder" id="about-folder">
-                    <div class="tab">About</div>
-                </div>
-                <div class="folder" id="projects-folder">
-                    <div class="tab">Projects</div>
-                </div>
-                <div class="folder" id="downloads-folder">
-                    <div class="tab">Downloads</div>
-                </div>
+            <div class="menu-buttons">
+                <label class="switch">
+                    <div class="tab">
+                        <input  id="home-switch" type="checkbox">
+                        <span class="slider" id="home-switch"></span>
+                    </div>
+                    <span class="switch-title">Home</span>
+                </label>
+                <label class="switch">
+                    <div class="tab">
+                        <input  id="about-switch" type="checkbox">
+                        <span class="slider"></span>
+                    </div>
+                    <span class="switch-title">About</span>
+                </label>
+                <label class="switch">
+                    <div class="tab">
+                        <input id="projects-switch" type="checkbox">
+                        <span class="slider"></span>
+                    </div>
+                    <span class="switch-title">Projects</span>
+                </label>
+                <label class="switch">
+                    <div class="tab">
+                        <input id="downloads-switch" type="checkbox">
+                        <span class="slider"></span>
+                    </div>
+                    <span class="switch-title">Downloads</span>
+                </label>
             </div>
             <div class="menu-button-container">
                 <div class="menu-toggle-btn">
-                    Switch
                 </div>
             </div>
         </div>

@@ -86,10 +86,10 @@ toggleBtn.addEventListener('click',()=>{
 
 // MENU TOGGLE
 const toggleMenuBtn = document.querySelector('.menu-toggle-btn');
-const homeBtn =  document.querySelector('#home-folder');
-const aboutBtn =  document.querySelector('#about-folder');
-const projectsBtn =  document.querySelector('#projects-folder');
-const downloadsBtn =  document.querySelector('#downloads-folder');
+const homeBtn =  document.querySelector('#home-switch');
+const aboutBtn =  document.querySelector('#about-switch');
+const projectsBtn =  document.querySelector('#projects-switch');
+const downloadsBtn =  document.querySelector('#downloads-switch');
 
 const homeContent = document.querySelector('.home-content');
 const aboutContent = document.querySelector('.about-content');
@@ -98,40 +98,26 @@ const downloadsContent = document.querySelector('.downloads-content');
 
 
 
+
+
 let menuState = ''; 
 
 function switchContent(next){
-    if(width > 800){
-        document.querySelector(`#${next}-folder`).classList.remove('hide');
-        document.querySelector(`#${next}-folder`).classList.add('show');
-    }
     
-    if(width > 460){
-        document.querySelector(`#${next}-folder`).querySelector('.tab').innerHTML = `${document.querySelector(`#${next}-folder`).querySelector('.tab').innerHTML} &#8853;`;
-    }
-    else{
-        document.querySelector(`#${next}-folder`).querySelector('.tab').style.backgroundColor = 'red';
-    }
+    const slider = document.querySelector(`#${next}-switch`).nextElementSibling;
+    slider.style.backgroundColor = '#4cd964';
+    slider.style.setProperty('--toggle-x', '55%');
+    
+    
 
     if(menuState != ''){
-        if(width > 800){
-            document.querySelector(`#${menuState}-folder`).classList.add('hide')
-            document.querySelector(`#${menuState}-folder`).classList.remove('show')
-        }
-        if(width > 460){
-            document.querySelector(`#${menuState}-folder`).querySelector('.tab').innerHTML = `${document.querySelector(`#${menuState}-folder`).querySelector('.tab').textContent.substring(0,document.querySelector(`#${menuState}-folder`).querySelector('.tab').textContent.length-2)}`;
-        }
-        else{
-            document.querySelector(`#${menuState}-folder`).querySelector('.tab').style.backgroundColor = '#f3c674';
-        }
-        
+        const temp = document.querySelector(`#${menuState}-switch`).nextElementSibling;
+        temp.style.backgroundColor = '#ccc';
+        temp.style.setProperty('--toggle-x', '5%');
     }
 
     if(menuState == next){
         menuState = '';
-        if(width > 460){
-            document.querySelector(`#${next}-folder`).querySelector('.tab').innerHTML = `${document.querySelector(`#${next}-folder`).querySelector('.tab').textContent.substring(0,document.querySelector(`#${next}-folder`).querySelector('.tab').textContent.length-2)}`;
-        }
     }
     else{
         menuState = next;
@@ -193,7 +179,10 @@ downloadsBtn.addEventListener('click',()=>{
     updateContent(menuState);
 })
 
+let counter = 1;
 toggleMenuBtn.addEventListener('click', ()=>{
+    toggleMenuBtn.style.transform = `rotate(${45*counter}deg)`;
+    counter++;
     switch(menuState){
         case '':
             switchContent('home');
