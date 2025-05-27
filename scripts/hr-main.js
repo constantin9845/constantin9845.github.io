@@ -101,19 +101,37 @@ const downloadsContent = document.querySelector('.downloads-content');
 let menuState = ''; 
 
 function switchContent(next){
-    document.querySelector(`#${next}-folder`).classList.remove('hide');
-    document.querySelector(`#${next}-folder`).classList.add('show');
-    document.querySelector(`#${next}-folder`).querySelector('.tab').innerHTML = `${document.querySelector(`#${next}-folder`).querySelector('.tab').innerHTML} &#8853;`;
+    if(width > 800){
+        document.querySelector(`#${next}-folder`).classList.remove('hide');
+        document.querySelector(`#${next}-folder`).classList.add('show');
+    }
+    
+    if(width > 460){
+        document.querySelector(`#${next}-folder`).querySelector('.tab').innerHTML = `${document.querySelector(`#${next}-folder`).querySelector('.tab').innerHTML} &#8853;`;
+    }
+    else{
+        document.querySelector(`#${next}-folder`).querySelector('.tab').style.backgroundColor = 'red';
+    }
 
     if(menuState != ''){
-        document.querySelector(`#${menuState}-folder`).classList.add('hide')
-        document.querySelector(`#${menuState}-folder`).classList.remove('show')
-        document.querySelector(`#${menuState}-folder`).querySelector('.tab').innerHTML = `${document.querySelector(`#${menuState}-folder`).querySelector('.tab').textContent.substring(0,document.querySelector(`#${menuState}-folder`).querySelector('.tab').textContent.length-2)}`;
+        if(width > 800){
+            document.querySelector(`#${menuState}-folder`).classList.add('hide')
+            document.querySelector(`#${menuState}-folder`).classList.remove('show')
+        }
+        if(width > 460){
+            document.querySelector(`#${menuState}-folder`).querySelector('.tab').innerHTML = `${document.querySelector(`#${menuState}-folder`).querySelector('.tab').textContent.substring(0,document.querySelector(`#${menuState}-folder`).querySelector('.tab').textContent.length-2)}`;
+        }
+        else{
+            document.querySelector(`#${menuState}-folder`).querySelector('.tab').style.backgroundColor = '#f3c674';
+        }
+        
     }
 
     if(menuState == next){
         menuState = '';
-        document.querySelector(`#${next}-folder`).querySelector('.tab').innerHTML = `${document.querySelector(`#${next}-folder`).querySelector('.tab').textContent.substring(0,document.querySelector(`#${next}-folder`).querySelector('.tab').textContent.length-2)}`;
+        if(width > 460){
+            document.querySelector(`#${next}-folder`).querySelector('.tab').innerHTML = `${document.querySelector(`#${next}-folder`).querySelector('.tab').textContent.substring(0,document.querySelector(`#${next}-folder`).querySelector('.tab').textContent.length-2)}`;
+        }
     }
     else{
         menuState = next;
@@ -208,6 +226,9 @@ const projectPlane = document.querySelector('.hr-projects-showcase')
 
 projectButtons.forEach(button =>{
     button.addEventListener('click',()=>{
+        if(width < 800){
+            colorProjectButton(button);
+        }
         const index = button.classList[1].substring(button.classList[1].length-1);
         showProject(index);
     })
@@ -289,5 +310,13 @@ function showProject(index){
     project.appendChild(link);
 
     projectPlane.appendChild(project);
+}
+
+function colorProjectButton(button){
+    projectButtons.forEach(btn =>{
+        btn.style.backgroundColor = '#f3c674'
+    })
+
+    button.style.backgroundColor = 'red';
 }
 

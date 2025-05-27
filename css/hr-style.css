@@ -386,15 +386,16 @@
         height: 40%;
 
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
         flex-direction: row;
-        position: relative;
+        position: unset;
     }
 
     .folder{
-        width: 150px;
+        width: 18%;
         height: 90px;
+        position: relative;
     }
 
     .folder.hide{
@@ -405,28 +406,33 @@
         transform: translateY(-50px);
     }
 
+    
+    .folder:hover{
+        transform: unset;
+    }
+
     #home-folder{
-        top: 0;
-        left: 20%;
+        top: unset;
+        left: unset;
     }
 
     #about-folder{
-        top: 0;
-        left: 32%;
+        top: unset;
+        left: unset;
     }
 
     #projects-folder{
-        top: 0;
-        left: 44%;
+        top: unset;
+        left: unset;
     }
 
     #downloads-folder{
-        top: 0;
-        left: 56%;
+        top: unset;
+        left: unset;
     }
 
     .tab{
-        width: 100px;
+        width: 60%;
         height: 20px;
         background-color: #f3c674;
         border: 2px solid #b58d3b;
@@ -488,18 +494,19 @@
 
     .menu-folders{
         width: 100%;
-        height: 50%;
+        height: 40%;
 
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
         flex-direction: row;
-        position: relative;
+        position: unset;
     }
 
     .folder{
-        width: 150px;
-        height: 75px;
+        width: 18%;
+        height: 80%;
+        position: relative;
     }
 
     .folder.hide{
@@ -511,27 +518,27 @@
     }
 
     #home-folder{
-        top: 0;
-        left: 15%;
+        top: unset;
+        left: unset;
     }
 
     #about-folder{
-        top: 0;
-        left: 30%;
+        top: unset;
+        left: unset;
     }
 
     #projects-folder{
-        top: 0;
-        left: 45%;
+        top: unset;
+        left: unset;
     }
 
     #downloads-folder{
-        top: 0;
-        left: 60%;
+        top: unset;
+        left: unset;
     }
 
     .tab{
-        width: 100px;
+        width: 60%;
         height: 20px;
         background-color: #f3c674;
         border: 2px solid #b58d3b;
@@ -544,7 +551,7 @@
         text-align: center;
         line-height: 25px;
         font-weight: bold;
-        font-size: 14px;
+        font-size: 10px;
     }
 
     .hr-content{
@@ -593,18 +600,19 @@
 
     .menu-folders{
         width: 100%;
-        height: 50%;
+        height: 40%;
 
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
         flex-direction: row;
-        position: relative;
+        position: unset;
     }
 
     .folder{
-        width: 25%;
-        height: 80px;
+        width: 18%;
+        height: 80%;
+        position: relative;
     }
 
     .folder.hide{
@@ -616,27 +624,27 @@
     }
 
     #home-folder{
-        top: 0;
-        left: 15%;
+        top: unset;
+        left: unset;
     }
 
     #about-folder{
-        top: 0;
-        left: 30%;
+        top: unset;
+        left: unset;
     }
 
     #projects-folder{
-        top: 0;
-        left: 45%;
+        top: unset;
+        left: unset;
     }
 
     #downloads-folder{
-        top: 0;
-        left: 60%;
+        top: unset;
+        left: unset;
     }
 
     .tab{
-        width: 75%;
+        width: 65%;
         height: 20px;
         background-color: #f3c674;
         border: 2px solid #b58d3b;
@@ -649,7 +657,7 @@
         text-align: center;
         line-height: 25px;
         font-weight: bold;
-        font-size: 14px;
+        font-size: 10px;
     }
 
     .hr-content{
@@ -698,18 +706,19 @@
 
     .menu-folders{
         width: 100%;
-        height: 50%;
+        height: 40%;
 
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
         flex-direction: row;
-        position: relative;
+        position: unset;
     }
 
     .folder{
-        width: 30%;
-        height: 50px;
+        width: 18%;
+        height: 80%;
+        position: relative;
     }
 
     .folder.hide{
@@ -717,31 +726,31 @@
     }
 
     .folder.show{
-        transform: translateY(-25px);
+        transform: translateY(-50px);
     }
 
     #home-folder{
-        top: 0;
-        left: 3%;
+        top: unset;
+        left: unset;
     }
 
     #about-folder{
-        top: 0;
-        left: 24%;
+        top: unset;
+        left: unset;
     }
 
     #projects-folder{
-        top: 0;
-        left: 45%;
+        top: unset;
+        left: unset;
     }
 
     #downloads-folder{
-        top: 0;
-        left: 65%;
+        top: unset;
+        left: unset;
     }
 
     .tab{
-        width: 100px;
+        width: 75%;
         height: 20px;
         background-color: #f3c674;
         border: 2px solid #b58d3b;
@@ -754,7 +763,7 @@
         text-align: center;
         line-height: 25px;
         font-weight: bold;
-        font-size: 14px;
+        font-size: 10px;
     }
 
     .hr-content{
@@ -941,8 +950,8 @@
     }
 
     .hr-project-btn:hover{
-        background-color: #ffe6b8;
-        transform: translateY(-15px);
+        background-color: #f3c674;
+        transform: unset;
     }
 
     /* SINGLE PROJECTS CONTENT */
@@ -1035,8 +1044,8 @@
     }
 
     .hr-project-btn:hover{
-        background-color: #ffe6b8;
-        transform: translateY(-15px);
+        background-color: #f3c674;
+        transform: unset;
     }
 
     /* SINGLE PROJECTS CONTENT */
@@ -1139,8 +1148,8 @@
     }
 
     .hr-project-btn:hover{
-        background-color: #ffe6b8;
-        transform: translateY(-15px);
+        background-color: #f3c674;
+        transform: unset;
     }
 
     /* SINGLE PROJECTS CONTENT */
