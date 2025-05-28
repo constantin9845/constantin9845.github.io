@@ -102,6 +102,9 @@ const downloadsContent = document.querySelector('.downloads-content');
 
 let menuState = ''; 
 
+switchContent('home');
+updateContent('');
+
 function switchContent(next){
     
     const slider = document.querySelector(`#${next}-switch`).nextElementSibling;
@@ -303,9 +306,9 @@ function showProject(index){
 
 function colorProjectButton(button){
     projectButtons.forEach(btn =>{
-        btn.style.backgroundColor = '#f3c674'
+        btn.style.backgroundColor = '#ffffff'
     })
 
-    button.style.backgroundColor = 'red';
+    button.style.backgroundColor = '#e6e6ec';
 }
 
