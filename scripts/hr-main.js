@@ -33,14 +33,14 @@ function setCookieIfNone(){
         date.setTime(date.getTime()+(3*24*60*60*1000));
         expires = "; expires=" + date.toUTCString();
 
-        document.cookie = 'mode' + "=" + 'apple' + expires + "; path=/";
+        document.cookie = 'mode' + "=" + '1983' + expires + "; path=/";
     }
     else{
-        if(getCookie() == 'apple'){
-            toggleText.textContent = 'HR Mode';
+        if(getCookie() == '1983'){
+            toggleText.textContent = '2025';
         }
         else{
-            toggleText.textContent = 'Apple Mode';
+            toggleText.textContent = '1983';
         }
     }
 }
@@ -51,15 +51,15 @@ function setCookie(value){
 }
 
 function updateUI(){
-    if(getCookie() == 'hr'){
+    if(getCookie() == '2025'){
         appleContainer.style.display = 'none';
         hrContainer.style.display = 'flex';
-        toggleText.textContent = 'Apple Mode';
+        toggleText.textContent = '1983';
     }
     else{
         appleContainer.style.display = 'flex'
         hrContainer.style.display = 'none';
-        toggleText.textContent = 'HR Mode';
+        toggleText.textContent = '2025';
     }
 }
 
@@ -72,15 +72,44 @@ if(width > 880){
 
 toggleBtn.addEventListener('click',()=>{
 
-    if(getCookie('mode') == 'apple'){
-        setCookie('hr')
+    if(getCookie('mode') == '1983'){
+        setCookie('2025')
     }
     else{
-        setCookie('apple');
+        setCookie('1983');
     }
     
     updateUI();
 })
+
+// MODE SWITCH ANIMATION
+const switchBtn = document.querySelector('.toggle');
+
+switchBtn.addEventListener('click', switchAnimation);
+
+function switchAnimation(){
+    const curtain = document.createElement('div');
+
+    curtain.style.position = 'absolute';
+    curtain.style.background = 'white';
+    curtain.style.top = '0';
+    curtain.style.left = '0';
+    curtain.style.width = '100vw';
+    curtain.style.height = '100vh';
+    curtain.style.transition = 'all 0.5s ease-in';
+
+    curtain.classList.add('curtain');
+    document.body.appendChild(curtain);
+    curtain.style.opacity = '1';
+
+    setTimeout(()=>{
+        curtain.style.opacity = '0';
+    }, 1000)
+
+    setTimeout(()=>{
+        document.body.removeChild(curtain);
+    }, 1500);
+}
 
 
 
@@ -94,7 +123,7 @@ const downloadsBtn =  document.querySelector('#downloads-switch');
 const homeContent = document.querySelector('.home-content');
 const aboutContent = document.querySelector('.about-content');
 const projectsContent = document.querySelector('.projects-content');
-const downloadsContent = document.querySelector('.downloads-content');
+const downloadsContent = document.querySelector('.hr-downloads-content');
 
 
 

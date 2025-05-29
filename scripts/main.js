@@ -134,7 +134,7 @@ function bootAnimation(){
 
 }
 
-bootAnimation()
+//bootAnimation()
 
 
 // ABOUT TAB
@@ -332,7 +332,7 @@ function createAbout(){
     introContainer.classList.add('intro-container');
 
     const intro = document.createElement('p');
-    intro.textContent = "Lorem Ipsum is simply dummy text of the printing and typesetting indus. Lorem Ipsum is simply dummy text of the printing and typesetting indus. Lorem Ipsum is simply dummy text of the printing and typesetting indus. Lorem Ipsum is simply dummy text of the printing and typesetting indus.";
+    intro.textContent = "Hey — I'm Konstantin, a software developer with a thing for Linux terminals and the obscure corners of cryptography. I build things that aim to be minimal, resilient, and a little off the beaten path. Most of what I make leans toward simplicity with just enough low-level control to keep it interesting. You’ll also notice a soft spot for retro machines woven into the design — a nod to ancient tech that shaped today. Have a look around.";
 
     introContainer.appendChild(intro);
 

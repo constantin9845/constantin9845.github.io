@@ -156,7 +156,7 @@
     height: 100%;
 }
 
-.about-row{
+.hr-about-row{
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -168,11 +168,11 @@
     gap: 1.5rem;
 }
 
-.about-row1{
+.hr-about-row1{
     height: 50%;
 }
 
-.about-row2{
+.hr-about-row2{
     height: 50%;
     display: flex;
     flex-direction: row;
@@ -383,7 +383,7 @@
     transition: all 0.3s ease-in-out;
 }
 
-.downloads-content h3{
+.hr-downloads-content h3{
     font-size: 1.5rem;
     color: #222;
     width: 90%;
@@ -393,7 +393,7 @@
     align-items: center;
 }
 
-.downloads-content p{
+.hr-downloads-content p{
     line-height: 1.6;
     font-size: 1.2rem;
     color: #555;
@@ -824,7 +824,7 @@
         height: 100%;
     }
 
-    .about-row{
+    .hr-about-row{
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -836,11 +836,11 @@
         gap: 1rem;
     }
 
-    .about-row1{
+    .hr-about-row1{
         height: 50%;
     }
 
-    .about-row2{
+    .hr-about-row2{
         height: 50%;
         display: flex;
         flex-direction: row;
@@ -921,7 +921,7 @@
         height: 100%;
     }
 
-    .about-row{
+    .hr-about-row{
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -933,11 +933,11 @@
         gap: 1rem;
     }
 
-    .about-row1{
+    .hr-about-row1{
         height: 50%;
     }
 
-    .about-row2{
+    .hr-about-row2{
         height: 50%;
         display: flex;
         flex-direction: row;
@@ -1019,7 +1019,7 @@
         overflow-y: scroll;
     }
 
-    .about-row{
+    .hr-about-row{
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -1031,11 +1031,11 @@
         gap: 1rem;
     }
 
-    .about-row1{
+    .hr-about-row1{
         height: unset;
     }
 
-    .about-row2{
+    .hr-about-row2{
         height: unset;
         display: flex;
         flex-direction: column;
@@ -1962,7 +1962,7 @@
         transition: all 0.3s ease-in-out;
     }
 
-    .downloads-content h3{
+    .hr-downloads-content h3{
         font-size: 1.5rem;
         color: #222;
         width: 90%;
@@ -1972,7 +1972,7 @@
         align-items: center;
     }
 
-    .downloads-content p{
+    .hr-downloads-content p{
         line-height: 1.6;
         font-size: 1.2rem;
         color: #555;
@@ -2043,7 +2043,7 @@
         transition: all 0.3s ease-in-out;
     }
 
-    .downloads-content h3{
+    .hr-downloads-content h3{
         font-size: 1.5rem;
         color: #222;
         width: 90%;
@@ -2053,7 +2053,7 @@
         align-items: center;
     }
 
-    .downloads-content p{
+    .hr-downloads-content p{
         line-height: 1.6;
         font-size: 1.2rem;
         color: #555;
@@ -2124,7 +2124,7 @@
         transition: all 0.3s ease-in-out;
     }
 
-    .downloads-content h3{
+    .hr-downloads-content h3{
         font-size: 1.5rem;
         color: #222;
         width: 90%;
@@ -2134,7 +2134,7 @@
         align-items: center;
     }
 
-    .downloads-content p{
+    .hr-downloads-content p{
         line-height: 1.6;
         font-size: 1.2rem;
         color: #555;
@@ -2205,7 +2205,7 @@
         transition: all 0.3s ease-in-out;
     }
 
-    .downloads-content h3{
+    .hr-downloads-content h3{
         font-size: 1.5rem;
         color: #222;
         width: 90%;
@@ -2215,7 +2215,7 @@
         align-items: center;
     }
 
-    .downloads-content p{
+    .hr-downloads-content p{
         line-height: 1.6;
         font-size: 1.2rem;
         color: #555;
@@ -2287,7 +2287,7 @@
         transition: all 0.3s ease-in-out;
     }
 
-    .downloads-content h3{
+    .hr-downloads-content h3{
         font-size: 1.5rem;
         color: #222;
         width: 90%;
@@ -2298,7 +2298,7 @@
         margin-top: 5%;
     }
 
-    .downloads-content p{
+    .hr-downloads-content p{
         line-height: 1.6;
         font-size: 1.2rem;
         color: #555;
@@ -2375,7 +2375,7 @@
         transition: all 0.3s ease-in-out;
     }
 
-    .downloads-content h3{
+    .hr-downloads-content h3{
         font-size: 1.5rem;
         color: #222;
         width: 90%;
@@ -2386,7 +2386,7 @@
         margin-top: 5%;
     }
 
-    .downloads-content p{
+    .hr-downloads-content p{
         line-height: 1.6;
         font-size: 1.2rem;
         color: #555;
