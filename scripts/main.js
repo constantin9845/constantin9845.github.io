@@ -134,7 +134,7 @@ function bootAnimation(){
 
 }
 
-//bootAnimation()
+bootAnimation()
 
 
 // ABOUT TAB
