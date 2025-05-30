@@ -134,7 +134,7 @@ function bootAnimation(){
 
 }
 
-bootAnimation()
+//bootAnimation()
 
 
 // ABOUT TAB
@@ -461,23 +461,35 @@ function createDownloads(){
     downloadsContent.classList.add('downloads-content');
 
     const description = document.createElement('p');
-    description.textContent = 'Download links of tools I created. Check out the descriptions in the projects section. The source code is available on Github.';
+    description.innerHTML = 'Download links of tools I created. Check out the descriptions in the projects section. The source code is available on Github. <br> <br> <a href=" https://github.com/constantin9845" target="_blank"> https://github.com/constantin9845</a>';
 
     const links = document.createElement('ul');
     let link = document.createElement('li');
+    link.style.textDecoration = 'underline';
+    link.style.cursor = 'pointer';
     link.textContent = 'Random Comment Picker (Windows)';
     link.addEventListener('click',()=>{
-        window.open('https://github.com/constantin9845/random-comments/releases/download/0.1v/WinCom.exe', "_blank")
+        const tempLink = document.createElement('a');
+        tempLink.href = './files/WinCom.exe';
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
+        
     })
     links.appendChild(link);
 
     link = document.createElement('li');
-    link.textContent = 'Windows';
+    link.textContent = 'Resume';
+    link.style.textDecoration = 'underline';
+    link.style.cursor = 'pointer';
     links.appendChild(link);
-
-    link = document.createElement('li');
-    link.textContent = 'Linux';
-    links.appendChild(link);
+    link.addEventListener('click',()=>{
+        const tempLink = document.createElement('a');
+        tempLink.href = './files/cv_ky_2025.docx-1.pdf';
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
+    })
 
     downloadsContent.appendChild(description);
     downloadsContent.appendChild(links);
@@ -729,6 +741,7 @@ function displayProject(projectNumber){
         STACK.moveFront(`project${projectNumber}${projectNumber}`);
     }
 }
+
 
 // DESTROY WINDOW
 function destroyWindow(className){

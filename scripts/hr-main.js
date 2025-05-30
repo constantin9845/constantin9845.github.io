@@ -7,6 +7,8 @@ const hrContainer = document.querySelector('.hr-container');
 
 const width = window.innerWidth;
 
+switchAnimation()
+
 // COOKIES - MODE
 
 function getCookie(){
