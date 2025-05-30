@@ -331,7 +331,6 @@
 .skills-container td{
     border: 1px solid black;
     padding: 2px;
-    font-size: 10px;
 }
 
 .imageDiv{
@@ -649,6 +648,40 @@ PROJECT
     outline: none;
 }
 
+
+@media only screen and (min-width: 1200px) {
+    .intro-container p{
+        line-height: 1.5;
+        font-size: 14px;
+    }
+
+    .interests-container h5{
+        font-size: 16px;
+    }
+
+    .interests-container table{
+        width: 80%;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .skills-container h5{
+        font-size: 16px;
+    }
+
+    .skills-container table{
+        width: 80%;
+        font-size: 16px;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    
+    .about-window, .project-window, .projects-window, .downloads-window, .info-window{
+        width: 95%;
+    }
+}
 
 @media only screen and (max-width: 880px) {
     .container{

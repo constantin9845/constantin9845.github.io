@@ -272,7 +272,7 @@ function showProject(index){
         "A minimal and efficient C++ library implementing the Trivium stream cipher, designed for lightweight cryptographic applications. It includes a secure key and IV generation function, enabling straightforward integration into embedded systems, custom encryption tools, or academic projects. The implementation is self-contained and dependency-free, offering clear structure and consistent performance across platforms."
     ];
 
-    let images = ['../images/appleLisa.png']
+    let images = ['../images/file-lock-desktop.png', '../images/studio.png', '../images/filelock-cli.png', '../images/aes.jpg', '../images/trivium.png']
 
     let skills = [
         ['JavaScript','Electron','NodeJS','C++','AES'],
@@ -301,7 +301,7 @@ function showProject(index){
     description.textContent = descriptions[index];
     description.id = 'hr-project-description'
 
-    const image = images[0];
+    const image = images[index];
     const projectSkills = skills[index];
     const link = document.createElement('a');
     link.href = links[index];
